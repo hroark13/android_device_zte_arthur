@@ -1,0 +1,118 @@
+service ds_fmc_appd /system/bin/ds_fmc_appd -p "rmnet0" -D
+group radio
+disabled
+oneshot
+
+on property:persist.data.ds_fmc_app.mode=1
+start ds_fmc_appd
+
+service ims_regmanager /system/bin/exe-ims-regmanagerprocessnative
+user system
+group qcom_oncrpc net_bt_admin inet radio wifi
+disabled
+
+on property:persist.ims.regmanager.mode=1
+start ims_regmanager
+
+on property:ro.data.large_tcp_window_size=true
+# Adjust socket buffer to enlarge TCP receive window for high bandwidth (e.g. DO-RevB)
+write /proc/sys/net/ipv4/tcp_adv_win_scale  1
+
+service thermald /system/bin/thermald
+user root
+group root
+disabled
+
+on property:persist.thermal.monitor=true
+start thermald
+
+service time_daemon /system/bin/time_daemon
+user root
+group root
+oneshot
+disabled
+
+on property:persist.timed.enable=true
+mkdir /data/time/ 0700
+start time_daemon
+
+service ftp /system/bin/sdptool add --channel=20 FTP
+user bluetooth
+group bluetooth net_bt_admin
+disabled
+oneshot
+
+service map /system/bin/sdptool add --channel=16 MAS
+user bluetooth
+group bluetooth net_bt_admin
+disabled
+oneshot
+
+#ZTE_WANGZY_PROXIMITY_101014
+service proximity_init /system/bin/proximity.init -r
+disabled
+oneshot
+
+#ZTE_ZHENGCHAO_SPRINTDIAG_20110630
+service sprintdiag /system/bin/sprintdiag
+user root
+group radio cache inet misc audio qcom_oncrpc diag
+
+on property:dev.bootcomplete=1
+start proximity_init
+#ZTE_WANGZY_PROXIMITY_101014 
+
+#ZTE_ZYJ_DEFPRI_110702
+setprop ro.cdma.home.operator.numeric 311870
+setprop ro.cdma.home.operator.alpha "Boost Mobile"
+#ZTE_ZYJ_DEFPRI_110702 
+
+# ZTE_DATA_TCP_MTU 20110727
+setprop persist.data_netmgrd_mtu 1480
+# ZTE_DATA_CDMA_IPV6 20110808
+setprop persist.telephony.support_ipv6 false
+
+on property:persist.service.sdlog.enable=1
+start sdlog-daemon
+#ZTE_RIL_RJG_20100804 end
+
+service DrmHost /system/bin/DrmHost
+# ZTE_RIL_RJG_20100623 begin
+on property:ro.gcftest=1
+stop DrmHost
+# ZTE_RIL_RJG_20100623 end
+
+# ZTE_BT_XUM_20110516 add
+service bluetooth_prop /system/bin/sh /system/bin/init.btprop.sh
+oneshot
+
+service flash_recovery /system/etc/install-recovery.sh
+oneshot
+
+# ZTE_ZBS_20110107 +++
+service wlan_prop /system/bin/sh /system/etc/init.wlanprop.sh
+oneshot
+
+##### WiFI############
+service hostapd /system/bin/hostapd -dddd /data/hostapd/hostapd.conf
+user root
+group root
+oneshot
+disabled
+
+service wpa_supplicant /system/bin/logwrapper /system/bin/wpa_supplicant -Dwext -iwlan0 -c/data/misc/wifi/wpa_supplicant.conf -dd
+user root
+group wifi inet
+socket wpa_wlan0 dgram 660 wifi wifi
+disabled
+oneshot
+
+service dhcpcd_wlan0 /system/bin/dhcpcd -ABKL wlan0
+disabled
+oneshot
+
+service iprenew_wlan0 /system/bin/dhcpcd -n
+disabled
+oneshot
+
+##### End WiFI############
