@@ -1,6 +1,6 @@
 CyanogenMod 10.0 for ZTE Warp (WIP)
 
-Alot of things still do not work, but we are trying
+A lot of things still do not work, but we are trying
 
 Credits
 
