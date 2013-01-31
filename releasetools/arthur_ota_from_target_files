@@ -411,14 +411,10 @@ def WriteFullOTAPackage(input_zip, output_zip):
   script.Print("")
   script.Print("CREDITS")
   script.Print("")
-  script.Print("hroark13")
-  script.Print("joe.stone")
-  script.Print("PlayfulGod")
-  script.Print("shinru2004")
-  script.Print("downthemachine")
-  script.Print("Dm47021")
-  script.Print("superr")
-  script.Print("Junkie2100> ")
+  script.Print("hroark13  joe.stone  PlayfulGod  shinru2004")
+  script.Print("")
+  script.Print("downthemachine  Dm47021  superr  Junkie2100")
+  script.Print("")
   script.Print("")
   script.Print("Unmounting Partitions")
   script.UnmountAll()
@@ -443,12 +439,8 @@ def WriteFullOTAPackage(input_zip, output_zip):
   symlinks = CopySystemFiles(input_zip, output_zip)
   script.MakeSymlinks(symlinks)
 
-
-  script.Print("Creating Stock Symlinks");
-  script.MakeSymlinks(("iwmulticall", "/system/bin/iwconfig", "/system/bin/iwevent", 
-        "/system/bin/iwgetid", "/system/bin/iwlist", "/system/bin/iwpriv",
-        "/system/bin/iwspy");)
-
+  script.Print("Creating Stock Symlinks")
+  script.AppendExtra('symlink("iwmulticall", "/system/xbin/iwconfig", "/system/xbin/iwgetid", "/system/xbin/iwlist", "/system/xbin/iwpriv", "/system/xbin/iwspy");')
 
 
   boot_img = common.GetBootableImage("boot.img", "boot.img",
