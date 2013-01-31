@@ -26,24 +26,14 @@
 # ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #
 
-# /*<DTS2010092003634 jiazhifeng 20100925 begin*/
-echo "ondemand" > /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor
-
-# /*DTS2011081702455 zhangshufeng 2011-8-17 begin >*/
-echo 245760 > /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq
-# /*DTS2011081702455 zhangshufeng 2011-8-17 end >*/
-
-# /*< DTS2011102601746 pengyu 20111026 begin */
-# Set up_threshold initialize value from 95 to 80 to enhance performance
-echo 95 > /sys/devices/system/cpu/cpu0/cpufreq/ondemand/up_threshold
-
-# /* DTS2011102601746 pengyu 20111026 end >*/
-# /*DTS2010092003634 jiazhifeng 20100925 end >*/
 #
 # start ril-daemon only for targets on which radio is present
 #
 baseband=`getprop ro.baseband`
 netmgr=`getprop ro.use_data_netmgrd`
+
+echo "init.qcom.sh">/proc/log2kernel
+echo "$baseband">/proc/log2kernel
 
 case "$baseband" in
     "msm" | "csfb" | "svlte2a" | "unknown")
@@ -82,26 +72,8 @@ case "$usbchgdisabled" in
     esac
 esac
 
-# /*< DTS2010102301151 liyuping liliang  20101122 begin */
-# enable hwvefs daemon process.
-/system/bin/hwvefs /data/hwvefs -o allow_other &
-# /* DTS2010102301151 liyuping liliang  20101122 end > */
-
-/* < DTS2011031705399 renxigang 20110317 begin */
-/system/bin/write_NV_114
-/* DTS2011031705399 renxigang 20110317 end > */
-case "$target" in
-# DTS2011090801552 zhangcanyan 20110908 begin Add support for "ro.product.device=hwu8800Pro". 
-# DTS2011080503149 zhangqijia 20110808 begin Add support for "ro.product.device=hwm886". 
-# /*< DTS2011061005484 fangxinyong  20110613 begin */
-# /* add support to u8860/c8860 */
-# /*< DTS2011092001051 zhaosongwei  20110920 begin */
-# /* add support to u8680/u8730 */
-    "hwu8800Pro" | "hwu8680" | "hwu8730" | "hwm886" | "hwu8860" | "hwc8860" | "msm7630_surf" | "msm7630_1x" | "msm7630_fusion")
-# /* DTS2011092001051 zhaosongwei  20110920 end > */
-# /* DTS2011061005484 fangxinyong  20110613 end > */
-# DTS2011080503149 zhangqijia 20110808 end
-# DTS2011090801552 zhangcanyan 20110908 end 
+#case "$target" in
+#    "msm7630_surf" | "msm7630_1x" | "msm7630_fusion" | "v9plus" | "bladeplus")
         insmod /system/lib/modules/ss_mfcinit.ko
         insmod /system/lib/modules/ss_vencoder.ko
         insmod /system/lib/modules/ss_vdecoder.ko
@@ -126,7 +98,6 @@ case "$target" in
              setprop qcom.bt.dev_power_class 2
              /system/bin/profiler_daemon&;;
             *)
-             setprop ro.sf.lcd_density 240
              ln -s  /system/usr/keychars/surf_keypad_qwerty.kcm.bin /system/usr/keychars/surf_keypad.kcm.bin;;
 
         esac
