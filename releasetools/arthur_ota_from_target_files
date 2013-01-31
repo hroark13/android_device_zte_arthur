@@ -440,7 +440,8 @@ def WriteFullOTAPackage(input_zip, output_zip):
   script.MakeSymlinks(symlinks)
 
   script.Print("Creating Stock Symlinks")
-  script.AppendExtra('symlink("iwmulticall", "/system/xbin/iwconfig", "/system/xbin/iwgetid", "/system/xbin/iwlist", "/system/xbin/iwpriv", "/system/xbin/iwspy");')
+  script.AppendExtra('symlink("/sbin/iwmulticall", "/system/xbin/iwconfig", "/system/xbin/iwgetid", "/system/xbin/iwlist");')
+  script.AppendExtra('symlink("/sbin/iwmulticall", "/system/xbin/iwpriv", "/system/xbin/iwspy");')
   script.AppendExtra('symlink("/system/lib/modules/libra.ko", "/system/lib/modules/wlan.ko");')
 
 
