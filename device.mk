@@ -120,7 +120,6 @@ PRODUCT_COPY_FILES += \
     device/zte/arthur/root/init.trace.rc:/root/init.trace.rc \
     device/zte/arthur/root/init.usb.rc:/root/init.usb.rc \
     device/zte/arthur/root/logo.bmp:/root/logo.bmp \
-    device/zte/arthur/root/membank.sh:/root/membank.sh \
     device/zte/arthur/root/ueventd.arthur.rc:/root/ueventd.arthur.rc \
     device/zte/arthur/root/ueventd.goldfish.rc:/root/ueventd.goldfish.rc \
     device/zte/arthur/root/ueventd.rc:/root/ueventd.rc \
@@ -129,6 +128,7 @@ PRODUCT_COPY_FILES += \
     device/zte/arthur/root/sbin/hci_qcomm_init:/root/sbin/hci_qcomm_init \
     device/zte/arthur/root/sbin/iwmulticall:/root/sbin/iwmulticall \
     device/zte/arthur/root/sbin/iwpriv:/root/sbin/iwpriv \
+    device/zte/arthur/root/sbin/membank.sh:/root/sbin/membank.sh \
     device/zte/arthur/root/sbin/ptt_socket_app:/root/sbin/ptt_socket_app \
     device/zte/arthur/root/sbin/rmt_storage:/root/sbin/rmt_storage \
     device/zte/arthur/root/sbin/ueventd:/root/sbin/ueventd \

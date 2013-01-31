@@ -132,7 +132,7 @@ on property:ro.emmc=1
 # ENABLE SECOND MEMORY BANK
 
 on property:init.svc.qcom-sh=stopped
-    exec /system/bin/sh -c "/membank.sh"
+    exec /system/bin/sh -c "/sbin/membank.sh"
 
 ########### END HROARK MOD 2 ###############################################
 
