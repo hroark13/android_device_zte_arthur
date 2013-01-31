@@ -441,6 +441,7 @@ def WriteFullOTAPackage(input_zip, output_zip):
 
   script.Print("Creating Stock Symlinks")
   script.AppendExtra('symlink("iwmulticall", "/system/xbin/iwconfig", "/system/xbin/iwgetid", "/system/xbin/iwlist", "/system/xbin/iwpriv", "/system/xbin/iwspy");')
+  script.AppendExtra('symlink("/system/lib/modules/libra.ko", "/system/lib/modules/wlan.ko");')
 
 
   boot_img = common.GetBootableImage("boot.img", "boot.img",

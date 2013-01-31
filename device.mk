@@ -38,7 +38,6 @@ PRODUCT_AAPT_CONFIG := hdpi
 LLVM_ROOT_PATH := external/llvm
 
 PRODUCT_PACKAGES += \
-	lights.msm7x30 \
 	applypatch \
 	ast-mm-vdec-omx-test \
 	com.android.future.usb.accessory \
@@ -305,6 +304,8 @@ PRODUCT_COPY_FILES += \
 PRODUCT_COPY_FILES += \
 	device/zte/arthur/prebuilt/b08c/lib/bluez-plugin/audio.so:system/lib/bluez-plugin/audio.so \
 	device/zte/arthur/prebuilt/b08c/lib/bluez-plugin/input.so:system/lib/bluez-plugin/input.so \
+	device/zte/arthur/prebuilt/b08c/lib/hw/gps.default.so:system/lib/hw/gps.msm7x30.so \
+	device/zte/arthur/prebuilt/b08c/lib/hw/lights.msm7k.so:system/lib/hw/lights.msm7x30.so \
 	device/zte/arthur/prebuilt/b08c/lib/hw/sensors.default.so:system/lib/hw/sensors.msm7x30.so \
 	device/zte/arthur/prebuilt/b08c/lib/libauth.so:system/lib/libauth.so \
 	device/zte/arthur/prebuilt/b08c/lib/libcm.so:system/lib/libcm.so \
