@@ -372,10 +372,6 @@ PRODUCT_COPY_FILES += \
     device/zte/arthur/prebuilt/b08c/usr/keylayout/fluid-keypad.kl:system/usr/keylayout/fluid-keypad.kl \
     device/zte/arthur/prebuilt/b08c/usr/keylayout/msm_tma300_ts.kl:system/usr/keylayout/msm_tma300_ts.kl
 
-# Prebuilt libraries that are needed to build open-source libraries
-PRODUCT_COPY_FILES += \
-    device/zte/arthur/prebuilt/files/lib/libv8.so:obj/lib/libv8.so
-
 # Boot Animation
 #PRODUCT_COPY_FILES += \
 #device/zte/arthur/prebuilt/files/media/bootanimation.zip:system/media/bootanimation.zip
