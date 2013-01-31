@@ -1,4 +1,3 @@
-#
 # system.prop for surf
 #
 
@@ -8,8 +7,11 @@ wifi.supplicant_no_update_ctrl=true
 dalvik.vm.dexopt-data-only=1
 com.qc.hardware=true
 
+
+ro.baseband.arch=msm
 ro.ril.disable.power.collapse=0
 ro.telephony.ril_class=ZTERIL2
+ro.telephony.ril.v3=qcomuiccstack,skipbrokendatacall,signalstrengt​h,datacall,skipnullaid
 ro.ril.def.preferred.network=4
 ro.telephony.default_network=4 
 rild.libpath=/system/lib/libril-qc-1.so
@@ -23,8 +25,18 @@ persist.rild.nitz_short_ons_0=
 persist.rild.nitz_short_ons_1=
 persist.rild.nitz_short_ons_2=
 persist.rild.nitz_short_ons_3=
-ril.subscription.types=NV
+ril.subscription.types=NV,RUIM
 DEVICE_PROVISIONED=1
+
+ro.carrier=unknown
+gsm.operator.alpha=Boost Mobile
+gsm.operator.numeric=310000
+ro.cdma.default_alpha=Boost Mobile
+ro.cdma.default_numeric=310000
+ro.cdma.home.operator.alpha=Boost Mobile
+ro.cdma.home.operator.numeric=310000
+mobiledata.interfaces=wlan0,rmnet0
+
 
 hwui.render_dirty_regions=false
 hwui.disable_vsync=true
@@ -121,18 +133,8 @@ ro.qualcomm.bluetooth.ftp=true
 ro.bluetooth.request.master=true
 
 
-# System property for cabl
-
-
-#
-# System prop for sending transmit power request to RIL during WiFi hotspot on/off
-#
-ro.ril.transmitpower=true
-ro.ril.shutdown=true
-
 
 #
 # System prop for using landscape preview layout in camera
 #
 debug.camera.landscape=true
-

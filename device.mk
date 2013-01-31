@@ -18,13 +18,10 @@ DEVICE_PACKAGE_OVERLAYS := device/zte/arthur/overlay
 PRODUCT_TAGS += dalvik.gc.type-precise
 
 PRODUCT_PROPERTY_OVERRIDES+= dalvik.vm.execution-mode=int:jit \
-	ro.telephony.call_ring.multiple=false \
-	ro.telephony.call_ring.delay=5000 \
 	dalvik.vm.dexopt-flags=m=y,u=n,v=a,o=v \
 	debug.enabletr=true \
 	persist.sys.use_dithering=0 \
 	ro.com.google.locationfeatures=1 \
-	mobiledata.interfaces = wlan0,rmnet0
 
 # Provides overrides to configure the Dalvik heap for a standard tablet device.
 
@@ -66,6 +63,7 @@ PRODUCT_PACKAGES += \
 	libOmxVidEnc \
 	libOpenMAXAL \
 	libOpenSLES \
+	liboverlay \
 	librs_jni \
 	libstagefrighthw \
 	LiveWallpapers \
@@ -194,8 +192,8 @@ PRODUCT_COPY_FILES += \
 
 # Audio
 PRODUCT_PACKAGES += \
-    audio_policy.msm7x30 \
-    audio.primary.msm7x30
+#    audio_policy.msm7x30 \
+#    audio.primary.msm7x30
 #    audio.usb.default \
 #    audio.a2dp.default \
 #    audio_policy.conf \
