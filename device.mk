@@ -62,7 +62,6 @@ PRODUCT_PACKAGES += \
 	libOmxVidEnc \
 	libOpenMAXAL \
 	libOpenSLES \
-	liboverlay \
 	librs_jni \
 	libstagefrighthw \
 	LiveWallpapers \
