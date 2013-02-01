@@ -1,9 +1,6 @@
 # Release name
 PRODUCT_RELEASE_NAME := arthur
 
-## Specify phone tech before including full_phone
-$(call inherit-product, vendor/cm/config/cdma.mk)
-
 TARGET_BOOTANIMATION_NAME := vertical-400x800
 
 # Inherit some common CM stuff.

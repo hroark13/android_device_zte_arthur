@@ -4,6 +4,8 @@
 wlan.chip.vendor=qcom
 wlan.chip.version=wcnss
 wifi.interface=wlan0
+wlan.driver.status=ok
+
 wifi.supplicant_scan_interval=90
 wifi.supplicant_no_update_ctrl=true
 dalvik.vm.dexopt-data-only=1

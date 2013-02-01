@@ -18,13 +18,15 @@ DEVICE_PACKAGE_OVERLAYS := device/zte/arthur/overlay
 PRODUCT_TAGS += dalvik.gc.type-precise
 
 PRODUCT_PROPERTY_OVERRIDES+= dalvik.vm.execution-mode=int:jit \
+	ro.telephony.call_ring.multiple=false \
+	ro.telephony.call_ring.delay=5000 \
 	dalvik.vm.dexopt-flags=m=y,u=n,v=a,o=v \
 	debug.enabletr=true \
 	persist.sys.use_dithering=0 \
 	ro.com.google.locationfeatures=1 \
+	mobiledata.interfaces = wlan0,rmnet0
 
 # Provides overrides to configure the Dalvik heap for a standard tablet device.
-
 PRODUCT_PROPERTY_OVERRIDES += \
 	dalvik.vm.heapstartsize=5m \
 	dalvik.vm.heapgrowthlimit=48m \
@@ -76,13 +78,6 @@ PRODUCT_PACKAGES += \
 	mm-video-encdrv-test \
 	setup_fs 
 
-## Bluetooth
-#PRODUCT_PACKAGES += \
-	#hciattach \
-	#hciconfig \
-	#hcitool \
-	#hdmid \
-
 # These are the hardware-specific features
 PRODUCT_COPY_FILES += \
 	frameworks/native/data/etc/tablet_core_hardware.xml:system/etc/permissions/tablet_core_hardware.xml \
@@ -130,7 +125,6 @@ PRODUCT_COPY_FILES += \
     device/zte/arthur/root/sbin/rmt_storage:/root/sbin/rmt_storage \
     device/zte/arthur/root/sbin/ueventd:/root/sbin/ueventd \
     device/zte/arthur/root/sbin/usbconfig:/root/sbin/usbconfig
-
 
 # Recovery
 PRODUCT_COPY_FILES += \
@@ -191,86 +185,70 @@ PRODUCT_COPY_FILES += \
 
 # Audio
 PRODUCT_PACKAGES += \
-#    audio_policy.msm7x30 \
-#    audio.primary.msm7x30
-#    audio.usb.default \
-#    audio.a2dp.default \
-#    audio_policy.conf \
-#    libaudioutils
+    audio_policy.msm7x30 \
+    audio.primary.msm7x30
 
 PRODUCT_COPY_FILES += \
 	device/zte/arthur/prebuilt/b08c/lib/libaudioalsa.so:obj/lib/libaudioalsa.so \
 	device/zte/arthur/prebuilt/b08c/lib/libaudioalsa.so:system/lib/libaudioalsa.so
-	#device/zte/arthur/prebuilt/b08c/lib/libaudio.so:obj/lib/libaudio.so \
-	#device/zte/arthur/prebuilt/b08c/lib/libaudio.so:system/lib/libaudio.so \
-	#device/zte/arthur/prebuilt/b08c/lib/libaudiopolicy.so:obj/lib/libaudiopolicy.so \
-	#device/zte/arthur/prebuilt/b08c/lib/libaudiopolicy.so:system/lib/libaudiopolicy.so \
 
 # WiFi
 PRODUCT_PACKAGES += \
-	libwpa_client
+    libwpa_client
 
 PRODUCT_COPY_FILES += \
-	device/zte/arthur/prebuilt/b08c/etc/init.qcom.wifi.sh:system/etc/init.qcom.wifi.sh \
-	device/zte/arthur/prebuilt/b08c/etc/init.qcom.sdio.sh:system/etc/init.qcom.sdio.sh \
 	device/zte/arthur/prebuilt/b08c/etc/dhcpcd/dhcpcd.conf:system/etc/dhcpcd/dhcpcd.conf \
 	device/zte/arthur/prebuilt/b08c/etc/firmware/wlan/cfg.dat:system/etc/firmware/wlan/cfg.dat \
 	device/zte/arthur/prebuilt/b08c/etc/firmware/wlan/qcom_cfg.ini:system/etc/firmware/wlan/qcom_cfg.ini \
 	device/zte/arthur/prebuilt/b08c/etc/firmware/wlan/qcom_fw.bin:system/etc/firmware/wlan/qcom_fw.bin \
 	device/zte/arthur/prebuilt/b08c/etc/firmware/wlan/qcom_wapi_fw.bin:system/etc/firmware/wlan/qcom_wapi_fw.bin \
 	device/zte/arthur/prebuilt/b08c/etc/firmware/wlan/qcom_wlan_nv.bin:system/etc/firmware/wlan/qcom_wlan_nv.bin \
-	device/zte/arthur/prebuilt/b08c/etc/wifi/wpa_supplicant.conf:system/etc/wifi/wpa_supplicant.conf \
+	device/zte/arthur/prebuilt/files/etc/wifi/wpa_supplicant.conf:system/etc/wifi/wpa_supplicant.conf \
 	device/zte/arthur/prebuilt/files/lib/modules/libra.ko:system/lib/modules/libra.ko \
 	device/zte/arthur/prebuilt/files/lib/modules/libra_ftm.ko:system/lib/modules/libra_ftm.ko \
 	device/zte/arthur/prebuilt/files/lib/modules/librasdioif.ko:system/lib/modules/librasdioif.ko
 
+# hostapd
+PRODUCT_COPY_FILES += \
+	device/zte/arthur/prebuilt/b08c/bin/hostapd:system/bin/hostapd \
+	device/zte/arthur/prebuilt/b08c/bin/hostapd_cli:system/bin/hostapd_cli \
+	device/zte/arthur/prebuilt/b08c/hostapd/hostapd.accept:system/hostapd/hostapd.accept \
+	device/zte/arthur/prebuilt/b08c/hostapd/hostapd.conf:system/hostapd/hostapd.conf \
+	device/zte/arthur/prebuilt/b08c/hostapd/hostapd.deny:system/hostapd/hostapd.deny \
+	device/zte/arthur/prebuilt/b08c/qcom/softap/hostapd_default.conf:system/qcom/softap/hostapd_default.conf \
+	device/zte/arthur/prebuilt/b08c/lib/libQWiFiSoftApCfg.so:system/lib/libQWiFiSoftApCfg.so
+
+
 # Camera
 PRODUCT_PACKAGES += \
-    libcameraservice
+    LegacyCamera \
+    camera.arthur \
+    libcamera
 
 PRODUCT_COPY_FILES += \
-    device/zte/arthur/prebuilt/files/bin/mm-qcamera-daemon:system/bin/mm-qcamera-daemon \
-    device/zte/arthur/prebuilt/files/bin/mm-qcamera-test:system/bin/mm-qcamera-test \
-    device/zte/arthur/prebuilt/files/bin/mm-qcamera-testsuite-client:system/bin/mm-qcamera-testsuite-client \
-    device/zte/arthur/prebuilt/files/bin/test_gemini:system/bin/test_gemini \
-    device/zte/arthur/prebuilt/files/bin/v4l2-qcamera-app:system/bin/v4l2-qcamera-app \
-    device/zte/arthur/prebuilt/files/lib/libcamera_client.so:system/lib/libcamera_client.so \
-    device/zte/arthur/prebuilt/files/lib/libchromatix_imx074_default_video.so:system/lib/libchromatix_imx074_default_video.so \
-    device/zte/arthur/prebuilt/files/lib/libchromatix_imx074_preview.so:system/lib/libchromatix_imx074_preview.so \
-    device/zte/arthur/prebuilt/files/lib/libchromatix_imx074_zsl.so:system/lib/libchromatix_imx074_zsl.so \
-    device/zte/arthur/prebuilt/files/lib/libchromatix_mt9e013_ar.so:system/lib/libchromatix_mt9e013_ar.so \
-    device/zte/arthur/prebuilt/files/lib/libchromatix_mt9e013_default_video.so:system/lib/libchromatix_mt9e013_default_video.so \
-    device/zte/arthur/prebuilt/files/lib/libchromatix_mt9e013_preview.so:system/lib/libchromatix_mt9e013_preview.so \
-    device/zte/arthur/prebuilt/files/lib/libchromatix_mt9e013_video_hfr.so:system/lib/libchromatix_mt9e013_video_hfr.so \
-    device/zte/arthur/prebuilt/files/lib/libchromatix_mt9p012_ar.so:system/lib/libchromatix_mt9p012_ar.so \
-    device/zte/arthur/prebuilt/files/lib/libchromatix_mt9p012_default_video.so:system/lib/libchromatix_mt9p012_default_video.so \
-    device/zte/arthur/prebuilt/files/lib/libchromatix_mt9p012_km_default_video.so:system/lib/libchromatix_mt9p012_km_default_video.so \
-    device/zte/arthur/prebuilt/files/lib/libchromatix_mt9p012_km_preview.so:system/lib/libchromatix_mt9p012_km_preview.so \
-    device/zte/arthur/prebuilt/files/lib/libchromatix_mt9p012_preview.so:system/lib/libchromatix_mt9p012_preview.so \
-    device/zte/arthur/prebuilt/files/lib/libchromatix_mt9t013_default_video.so:system/lib/libchromatix_mt9t013_default_video.so \
-    device/zte/arthur/prebuilt/files/lib/libchromatix_mt9t013_preview.so:system/lib/libchromatix_mt9t013_preview.so \
-    device/zte/arthur/prebuilt/files/lib/libchromatix_ov8810_default_video.so:system/lib/libchromatix_ov8810_default_video.so \
-    device/zte/arthur/prebuilt/files/lib/libchromatix_ov8810_preview.so:system/lib/libchromatix_ov8810_preview.so \
-    device/zte/arthur/prebuilt/files/lib/libchromatix_ov9726_preview.so:system/lib/libchromatix_ov9726_preview.so \
-    device/zte/arthur/prebuilt/files/lib/libchromatix_ov9726_video.so:system/lib/libchromatix_ov9726_video.so \
-    device/zte/arthur/prebuilt/files/lib/libchromatix_s5k3e2fx_default_video.so:system/lib/libchromatix_s5k3e2fx_default_video.so \
-    device/zte/arthur/prebuilt/files/lib/libchromatix_s5k3e2fx_preview.so:system/lib/libchromatix_s5k3e2fx_preview.so \
-    device/zte/arthur/prebuilt/files/lib/libchromatix_sn12m0pz_default_video.so:system/lib/libchromatix_sn12m0pz_default_video.so \
-    device/zte/arthur/prebuilt/files/lib/libchromatix_sn12m0pz_preview.so:system/lib/libchromatix_sn12m0pz_preview.so \
-    device/zte/arthur/prebuilt/files/lib/libchromatix_vb6801_default_video.so:system/lib/libchromatix_vb6801_default_video.so \
-    device/zte/arthur/prebuilt/files/lib/libchromatix_vb6801_preview.so:system/lib/libchromatix_vb6801_preview.so \
-    device/zte/arthur/prebuilt/files/lib/libchromatix_vx6953_default_video.so:system/lib/libchromatix_vx6953_default_video.so \
-    device/zte/arthur/prebuilt/files/lib/libchromatix_vx6953_preview.so:system/lib/libchromatix_vx6953_preview.so \
-    device/zte/arthur/prebuilt/files/lib/libgemini.so:system/lib/libgemini.so \
-    device/zte/arthur/prebuilt/files/lib/libI420colorconvert.so:system/lib/libI420colorconvert.so \
-    device/zte/arthur/prebuilt/files/lib/libmmipl.so:system/lib/libmmipl.so \
-    device/zte/arthur/prebuilt/files/lib/libmmjpeg.so:system/lib/libmmjpeg.so \
-    device/zte/arthur/prebuilt/files/lib/libmmjps.so:system/lib/libmmjps.so \
-    device/zte/arthur/prebuilt/files/lib/libmmmpod.so:system/lib/libmmmpod.so \
-    device/zte/arthur/prebuilt/files/lib/libmmmpo.so:system/lib/libmmmpo.so \
-    device/zte/arthur/prebuilt/files/lib/libmmosal.so:system/lib/libmmosal.so \
-    device/zte/arthur/prebuilt/files/lib/liboemcamera.so:system/lib/liboemcamera.so \
-    device/zte/arthur/prebuilt/files/lib/hw/camera.msm7x30.so:system/lib/hw/camera.msm7x30.so
+	device/zte/arthur/prebuilt/b08c/bin/mm-qcamera-test:system/bin/mm-qcamera-test \
+	device/zte/arthur/prebuilt/b08c/bin/mm-qcamera-testsuite-client:system/bin/mm-qcamera-testsuite-client \
+	device/zte/arthur/prebuilt/b08c/lib/libgemini.so:system/lib/libgemini.so \
+	device/zte/arthur/prebuilt/b08c/lib/libmmipl.so:system/lib/libmmipl.so \
+	device/zte/arthur/prebuilt/b08c/lib/libmmjpeg.so:system/lib/libmmjpeg.so \
+	device/zte/arthur/prebuilt/b08c/lib/libmmjpeg.so:obj/lib/libmmjpeg.so \
+	device/zte/arthur/prebuilt/b08c/lib/liboemcamera.so:system/lib/liboemcamera.so \
+	device/zte/arthur/prebuilt/b08c/lib/liboemcamera.so:obj/lib/liboemcamera.so \
+	device/zte/arthur/prebuilt/b08c/lib/libcamera.so:obj/lib/libcamera.so \
+	device/zte/arthur/prebuilt/b08c/lib/libcamera.so:system/lib/libcamera.so
+
+
+# B08c usr/Keychars/Keylayout 
+PRODUCT_COPY_FILES += \
+    device/zte/arthur/prebuilt/b08c/usr/icu/icudt44l.dat:system/usr/icu/icudt44l.dat \
+    device/zte/arthur/prebuilt/b08c/usr/keychars/arthur_keypad_numeric.kcm.bin:system/usr/keychars/arthur_keypad_numeric.kcm.bin \
+    device/zte/arthur/prebuilt/b08c/usr/keychars/arthur_keypad_qwerty.kcm.bin:system/usr/keychars/arthur_keypad_qwerty.kcm.bin \
+    device/zte/arthur/prebuilt/b08c/usr/keychars/qwerty.kcm.bin:system/usr/keychars/qwerty.kcm.bin \
+    device/zte/arthur/prebuilt/b08c/usr/keychars/qwerty2.kcm.bin:system/usr/keychars/qwerty2.kcm.bin \
+    device/zte/arthur/prebuilt/b08c/usr/keylayout/7k_handset.kl:system/usr/keylayout/7k_handset.kl \
+    device/zte/arthur/prebuilt/b08c/usr/keylayout/arthur_keypad.kl:system/usr/keylayout/arthur_keypad.kl \
+    device/zte/arthur/prebuilt/b08c/usr/keylayout/fluid-keypad.kl:system/usr/keylayout/fluid-keypad.kl \
+    device/zte/arthur/prebuilt/b08c/usr/keylayout/msm_tma300_ts.kl:system/usr/keylayout/msm_tma300_ts.kl
 
 # B08c bin
 PRODUCT_COPY_FILES += \
@@ -291,8 +269,6 @@ PRODUCT_COPY_FILES += \
 	device/zte/arthur/prebuilt/b08c/bin/hcitool:system/bin/hcitool \
 	device/zte/arthur/prebuilt/b08c/bin/hdmid:system/bin/hdmid \
 	device/zte/arthur/prebuilt/b08c/bin/hlr_auc_gw:system/bin/hlr_auc_gw \
-	device/zte/arthur/prebuilt/b08c/bin/hostapd:system/bin/hostapd \
-	device/zte/arthur/prebuilt/b08c/bin/hostapd_cli:system/bin/hostapd_cli \
 	device/zte/arthur/prebuilt/b08c/bin/init.btprop.sh:system/bin/init.btprop.sh \
 	device/zte/arthur/prebuilt/b08c/bin/iprenew:system/bin/iprenew \
 	device/zte/arthur/prebuilt/b08c/bin/loc_api_app:system/bin/loc_api_app \
@@ -309,7 +285,7 @@ PRODUCT_COPY_FILES += \
 	device/zte/arthur/prebuilt/b08c/bin/thermald:system/bin/thermald \
 	device/zte/arthur/prebuilt/b08c/bin/usbhub:system/bin/usbhub \
 	device/zte/arthur/prebuilt/b08c/bin/usbhub_init:system/bin/usbhub_init \
-	device/zte/arthur/prebuilt/b08c/bin/wpa_supplicant:system/bin/wpa_supplicant
+
 
 # B08c etc
 PRODUCT_COPY_FILES += \
@@ -320,16 +296,6 @@ PRODUCT_COPY_FILES += \
 	device/zte/arthur/prebuilt/b08c/etc/init.qcom.post_boot.sh:system/etc/init.qcom.post_boot.sh \
 	device/zte/arthur/prebuilt/b08c/etc/vold.fstab:system/etc/vold.fstab \
 
-# hostapd
-PRODUCT_PACKAGES += \
-	hostapd \
-	hostapd_cli
-
-PRODUCT_COPY_FILES += \
-	device/zte/arthur/prebuilt/b08c/hostapd/hostapd.accept:system/hostapd/hostapd.accept \
-	device/zte/arthur/prebuilt/b08c/hostapd/hostapd.conf:system/hostapd/hostapd.conf \
-	device/zte/arthur/prebuilt/b08c/hostapd/hostapd.deny:system/hostapd/hostapd.deny \
-	device/zte/arthur/prebuilt/b08c/qcom/softap/hostapd_default.conf:system/qcom/softap/hostapd_default.conf
 
 # B08c lib
 PRODUCT_COPY_FILES += \
@@ -356,6 +322,7 @@ PRODUCT_COPY_FILES += \
 	device/zte/arthur/prebuilt/b08c/lib/libloc_ext.so:system/lib/libloc_ext.so \
 	device/zte/arthur/prebuilt/b08c/lib/libloc-rpc.so:system/lib/libloc-rpc.so \
 	device/zte/arthur/prebuilt/b08c/lib/libmmgsdilib.so:system/lib/libmmgsdilib.so \
+	device/zte/arthur/prebuilt/b08c/lib/libmmosal.so:system/lib/libmmosal.so \
 	device/zte/arthur/prebuilt/b08c/lib/libmmparser.so:system/lib/libmmparser.so \
 	device/zte/arthur/prebuilt/b08c/lib/libmmparser_divxdrmlib.so:system/lib/libmmparser_divxdrmlib.so \
 	device/zte/arthur/prebuilt/b08c/lib/libnetmgr.so:system/lib/libnetmgr.so \
@@ -376,7 +343,6 @@ PRODUCT_COPY_FILES += \
 	device/zte/arthur/prebuilt/b08c/lib/libqmi.so:system/lib/libqmi.so \
 	device/zte/arthur/prebuilt/b08c/lib/libqmiservices.so:system/lib/libqmiservices.so \
 	device/zte/arthur/prebuilt/b08c/lib/libqueue.so:system/lib/libqueue.so \
-	device/zte/arthur/prebuilt/b08c/lib/libQWiFiSoftApCfg.so:system/lib/libQWiFiSoftApCfg.so \
 	device/zte/arthur/prebuilt/b08c/lib/libreference-cdma-sms.so:system/lib/libreference-cdma-sms.so \
 	device/zte/arthur/prebuilt/b08c/lib/libreference-ril.so:obj/lib/libreference-ril.so \
 	device/zte/arthur/prebuilt/b08c/lib/libreference-ril.so:system/lib/libreference-ril.so \
@@ -389,56 +355,3 @@ PRODUCT_COPY_FILES += \
 	device/zte/arthur/prebuilt/b08c/lib/libwms.so:system/lib/libwms.so \
 	device/zte/arthur/prebuilt/b08c/lib/libwmsts.so:system/lib/libwmsts.so
 
-# B08c usr/Keychars/Keylayout 
-PRODUCT_COPY_FILES += \
-    device/zte/arthur/prebuilt/b08c/usr/icu/icudt44l.dat:system/usr/icu/icudt44l.dat \
-    device/zte/arthur/prebuilt/b08c/usr/keychars/arthur_keypad_numeric.kcm.bin:system/usr/keychars/arthur_keypad_numeric.kcm.bin \
-    device/zte/arthur/prebuilt/b08c/usr/keychars/arthur_keypad_qwerty.kcm.bin:system/usr/keychars/arthur_keypad_qwerty.kcm.bin \
-    device/zte/arthur/prebuilt/b08c/usr/keychars/qwerty.kcm.bin:system/usr/keychars/qwerty.kcm.bin \
-    device/zte/arthur/prebuilt/b08c/usr/keychars/qwerty2.kcm.bin:system/usr/keychars/qwerty2.kcm.bin \
-    device/zte/arthur/prebuilt/b08c/usr/keylayout/7k_handset.kl:system/usr/keylayout/7k_handset.kl \
-    device/zte/arthur/prebuilt/b08c/usr/keylayout/arthur_keypad.kl:system/usr/keylayout/arthur_keypad.kl \
-    device/zte/arthur/prebuilt/b08c/usr/keylayout/fluid-keypad.kl:system/usr/keylayout/fluid-keypad.kl \
-    device/zte/arthur/prebuilt/b08c/usr/keylayout/msm_tma300_ts.kl:system/usr/keylayout/msm_tma300_ts.kl
-
-# Boot Animation
-#PRODUCT_COPY_FILES += \
-#device/zte/arthur/prebuilt/files/media/bootanimation.zip:system/media/bootanimation.zip
-
-############ getting ignored for some reason 
-#frameworks/native/data/etc/android.software.sip.voip.xml:system/etc/permissions/android.software.sip.voip.xml \
-#device/zte/arthur/prebuilt/b08c/etc/apns-conf.xml:system/etc/apns-conf.xml \
-#device/zte/arthur/prebuilt/b08c/etc/bluetooth/input.conf:system/etc/bluetooth/input.conf \
-#device/zte/arthur/prebuilt/b08c/etc/bluetooth/main.conf:system/etc/bluetooth/main.conf
-#device/zte/arthur/prebuilt/b08c/etc/bluetooth/network.conf:system/etc/bluetooth/network.conf \
-
-########### not in b08c
-#device/zte/arthur/prebuilt/b08c/bin/ATFWD-daemon:system/bin/ATFWD-daemon \
-#device/zte/arthur/prebuilt/b08c/bin/brcm_patchram_plus:system/bin/brcm_patchram_plus \
-#device/zte/arthur/prebuilt/b08c/bin/bridgemgrd:system/bin/bridgemgrd \
-#device/zte/arthur/prebuilt/b08c/bin/dcvsd:system/bin/dcvsd \
-#device/zte/arthur/prebuilt/b08c/bin/mm-mpo-enc-test:system/bin/mm-mpo-enc-test \
-#device/zte/arthur/prebuilt/b08c/bin/mm-qcamera-daemon:system/bin/mm-qcamera-daemon \
-#device/zte/arthur/prebuilt/b08c/bin/mpdecision:system/bin/mpdecision \
-#device/zte/arthur/prebuilt/b08c/bin/qmiproxy:system/bin/qmiproxy \
-#device/zte/arthur/prebuilt/b08c/bin/radish:system/bin/radish \
-#device/zte/arthur/prebuilt/b08c/bin/v4l2-qcamera-app:system/bin/v4l2-qcamera-app \
-#device/zte/arthur/prebuilt/b08c/bin/wiperiface:system/bin/wiperiface \
-#device/zte/arthur/prebuilt/b08c/etc/init.qcom.mdm_links.sh:system/etc/init.qcom.mdm_links.sh \
-#device/zte/arthur/prebuilt/b08c/etc/init.qcom.modem_links.sh:system/etc/init.qcom.modem_links.sh \
-#device/zte/arthur/prebuilt/b08c/etc/media_codecs.xml:system/etc/media_codecs.xml \
-#device/zte/arthur/prebuilt/b08c/etc/media_profiles.xml:system/etc/media_profiles.xml \
-#device/zte/arthur/prebuilt/b08c/lib/libacdbloader.so:obj/lib/libacdbloader.so \
-#device/zte/arthur/prebuilt/b08c/lib/libacdbloader.so:system/lib/libacdbloader.so \
-#device/zte/arthur/prebuilt/b08c/lib/libacdbmapper.so:obj/lib/libacdbmapper.so \
-#device/zte/arthur/prebuilt/b08c/lib/libacdbmapper.so:system/lib/libacdbmapper.so \
-#device/zte/arthur/prebuilt/b08c/lib/libaudcal.so:obj/lib/libaudcal.so \
-#device/zte/arthur/prebuilt/b08c/lib/libaudcal.so:system/lib/libaudcal.so \
-#device/zte/arthur/prebuilt/b08c/lib/libmllite.so:system/lib/libmllite.so \
-#device/zte/arthur/prebuilt/b08c/lib/libmlplatform.so:system/lib/libmlplatform.so \
-#device/zte/arthur/prebuilt/b08c/lib/libmmmpo.so:system/lib/libmmmpo.so \
-#device/zte/arthur/prebuilt/b08c/lib/libmpl.so:system/lib/libmpl.so \
-#device/zte/arthur/prebuilt/b08c/lib/libmpl_sys_jni.so:system/lib/libmpl_sys_jni.so \
-#device/zte/arthur/prebuilt/b08c/lib/libtcpfinaggr.so:system/lib/libtcpfinaggr.so \
-#device/zte/arthur/prebuilt/b08c/lib/libtime_genoff.so:system/lib/libtime_genoff.so \
-#device/zte/arthur/prebuilt/b08c/lib/libwiperjni.so:system/lib/libwiperjni.so \

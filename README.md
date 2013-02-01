@@ -53,14 +53,6 @@ git clone https://github.com/hroark13/android_device_zte_arthur.git -b master ar
 
 cd ../..
 
-mkdir kernel/zte
-
-cd kernel/zte
-
-git clone https://github.com/hroark13/WARP_KERNEL -b jellybean arthur
-
-cd ../..
-
 cp device/zte/arthur/ZTERIL.java frameworks/base/telephony/java/com/android/internal/telephony/
 
 cp device/zte/arthur/ZTERIL2.java frameworks/base/telephony/java/com/android/internal/telephony/
