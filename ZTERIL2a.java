@@ -41,7 +41,7 @@ import java.util.ArrayList;
  *
  * {@hide}
  */
-public class ZTERIL2 extends RIL implements CommandsInterface {
+public class ZTERIL2a extends RIL implements CommandsInterface {
     protected HandlerThread mIccThread;
     protected IccHandler mIccHandler;
     protected String mAid;
@@ -58,7 +58,7 @@ public class ZTERIL2 extends RIL implements CommandsInterface {
     private final int RIL_INT_RADIO_ON_HTC = 13;
 
 
-    public ZTERIL2(Context context, int networkMode, int cdmaSubscription) {
+    public ZTERIL2a(Context context, int networkMode, int cdmaSubscription) {
         super(context, networkMode, cdmaSubscription);
         mSetPreferredNetworkType = -1;
         mQANElements = 5;

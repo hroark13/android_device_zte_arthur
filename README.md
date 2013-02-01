@@ -65,7 +65,7 @@ cp device/zte/arthur/ZTERIL.java frameworks/base/telephony/java/com/android/inte
 
 cp device/zte/arthur/ZTERIL2.java frameworks/base/telephony/java/com/android/internal/telephony/
 
-cp device/zte/arthur/ZTERIL3.java frameworks/base/telephony/java/com/android/internal/telephony/
+cp device/zte/arthur/ZTERIL2a.java frameworks/base/telephony/java/com/android/internal/telephony/
 
 source ./build/envsetup.sh
 
