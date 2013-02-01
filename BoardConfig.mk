@@ -124,15 +124,16 @@ TARGET_PROVIDES_LIBAUDIO := true
 #BOARD_PROVIDES_LIBRIL := true
 
 # Wifi
-WIFI_DRIVER_MODULE_NAME          := wlan
-WIFI_DRIVER_MODULE_PATH          := "/system/lib/modules/wlan.ko"
-WPA_SUPPLICANT_VERSION           := VER_0_8_X
-BOARD_WPA_SUPPLICANT_DRIVER      := NL80211
-BOARD_HOSTAPD_DRIVER             := NL80211
-BOARD_WLAN_DEVICE                := qcwcn
-WIFI_DRIVER_FW_PATH_STA          := "sta"
-WIFI_DRIVER_FW_PATH_AP           := "ap"
-WIFI_DRIVER_FW_PATH_P2P          := "p2p"
+BOARD_WPA_SUPPLICANT_DRIVER := WEXT
+WPA_SUPPLICANT_VERSION := VER_0_6_X
+BOARD_WLAN_DEVICE := libra
+WIFI_DRIVER_MODULE_PATH := "/system/lib/modules/libra.ko"
+WIFI_DRIVER_MODULE_NAME := "libra"
+WIFI_EXT_MODULE_PATH := "/system/lib/modules/librasdioif.ko"
+WIFI_EXT_MODULE_NAME := "librasdioif"
+WIFI_PRE_LOADER := "qcom_sdio_init"
+WIFI_POST_UNLOADER := "qcom_sdio_deinit"
+BOARD_WEXT_NO_COMBO_SCAN := true
 
 # Bluetooth
 BOARD_HAVE_BLUETOOTH := true

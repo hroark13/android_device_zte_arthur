@@ -452,6 +452,7 @@ service wlan_prop /system/bin/sh /system/etc/init.wlanprop.sh
     oneshot
 
 ##### WiFI############
+
 service hostapd /system/bin/hostapd -dddd /data/hostapd/hostapd.conf
     user root
     group root
@@ -460,19 +461,23 @@ service hostapd /system/bin/hostapd -dddd /data/hostapd/hostapd.conf
 
 service wpa_supplicant /system/bin/logwrapper /system/bin/wpa_supplicant -Dwext -iwlan0 -c/data/misc/wifi/wpa_supplicant.conf -dd
     user root
-    group wifi inet
+    group system wifi inet
     socket wpa_wlan0 dgram 660 wifi wifi
     disabled
     oneshot
+
+service qcom_sdio_init /system/etc/init.qcom.sdio.sh 1
+    oneshot
+    disabled
+
+service qcom_sdio_deinit /system/etc/init.qcom.sdio.sh 0
+    oneshot
+    disabled
 
 service dhcpcd_wlan0 /system/bin/dhcpcd -ABKL wlan0
     disabled
     oneshot
 
-#service iprenew_wlan0 /system/bin/iprenew
-#    disabled
-#    oneshot	
-	
 service iprenew_wlan0 /system/bin/dhcpcd -n
     disabled
     oneshot
