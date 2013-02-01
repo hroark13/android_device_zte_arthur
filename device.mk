@@ -226,20 +226,51 @@ PRODUCT_COPY_FILES += \
 
 # Camera
 PRODUCT_PACKAGES += \
-    LegacyCamera \
-    camera.msm7x30
+    libcameraservice
 
 PRODUCT_COPY_FILES += \
-	device/zte/arthur/prebuilt/b08c/bin/mm-qcamera-test:system/bin/mm-qcamera-test \
-	device/zte/arthur/prebuilt/b08c/bin/mm-qcamera-testsuite-client:system/bin/mm-qcamera-testsuite-client \
-	device/zte/arthur/prebuilt/b08c/lib/libgemini.so:system/lib/libgemini.so \
-	device/zte/arthur/prebuilt/b08c/lib/libmmipl.so:system/lib/libmmipl.so \
-	device/zte/arthur/prebuilt/b08c/lib/libmmjpeg.so:system/lib/libmmjpeg.so \
-	device/zte/arthur/prebuilt/b08c/lib/libmmjpeg.so:obj/lib/libmmjpeg.so \
-	device/zte/arthur/prebuilt/b08c/lib/liboemcamera.so:system/lib/liboemcamera.so \
-	device/zte/arthur/prebuilt/b08c/lib/liboemcamera.so:obj/lib/liboemcamera.so \
-	device/zte/arthur/prebuilt/b08c/lib/libcamera.so:obj/lib/libcamera.so \
-	device/zte/arthur/prebuilt/b08c/lib/libcamera.so:system/lib/libcamera.so
+    device/zte/arthur/prebuilt/files/bin/mm-qcamera-daemon:system/bin/mm-qcamera-daemon \
+    device/zte/arthur/prebuilt/files/bin/mm-qcamera-test:system/bin/mm-qcamera-test \
+    device/zte/arthur/prebuilt/files/bin/mm-qcamera-testsuite-client:system/bin/mm-qcamera-testsuite-client \
+    device/zte/arthur/prebuilt/files/bin/test_gemini:system/bin/test_gemini \
+    device/zte/arthur/prebuilt/files/bin/v4l2-qcamera-app:system/bin/v4l2-qcamera-app \
+    device/zte/arthur/prebuilt/files/lib/libcamera_client.so:system/lib/libcamera_client.so \
+    device/zte/arthur/prebuilt/files/lib/libchromatix_imx074_default_video.so:system/lib/libchromatix_imx074_default_video.so \
+    device/zte/arthur/prebuilt/files/lib/libchromatix_imx074_preview.so:system/lib/libchromatix_imx074_preview.so \
+    device/zte/arthur/prebuilt/files/lib/libchromatix_imx074_zsl.so:system/lib/libchromatix_imx074_zsl.so \
+    device/zte/arthur/prebuilt/files/lib/libchromatix_mt9e013_ar.so:system/lib/libchromatix_mt9e013_ar.so \
+    device/zte/arthur/prebuilt/files/lib/libchromatix_mt9e013_default_video.so:system/lib/libchromatix_mt9e013_default_video.so \
+    device/zte/arthur/prebuilt/files/lib/libchromatix_mt9e013_preview.so:system/lib/libchromatix_mt9e013_preview.so \
+    device/zte/arthur/prebuilt/files/lib/libchromatix_mt9e013_video_hfr.so:system/lib/libchromatix_mt9e013_video_hfr.so \
+    device/zte/arthur/prebuilt/files/lib/libchromatix_mt9p012_ar.so:system/lib/libchromatix_mt9p012_ar.so \
+    device/zte/arthur/prebuilt/files/lib/libchromatix_mt9p012_default_video.so:system/lib/libchromatix_mt9p012_default_video.so \
+    device/zte/arthur/prebuilt/files/lib/libchromatix_mt9p012_km_default_video.so:system/lib/libchromatix_mt9p012_km_default_video.so \
+    device/zte/arthur/prebuilt/files/lib/libchromatix_mt9p012_km_preview.so:system/lib/libchromatix_mt9p012_km_preview.so \
+    device/zte/arthur/prebuilt/files/lib/libchromatix_mt9p012_preview.so:system/lib/libchromatix_mt9p012_preview.so \
+    device/zte/arthur/prebuilt/files/lib/libchromatix_mt9t013_default_video.so:system/lib/libchromatix_mt9t013_default_video.so \
+    device/zte/arthur/prebuilt/files/lib/libchromatix_mt9t013_preview.so:system/lib/libchromatix_mt9t013_preview.so \
+    device/zte/arthur/prebuilt/files/lib/libchromatix_ov8810_default_video.so:system/lib/libchromatix_ov8810_default_video.so \
+    device/zte/arthur/prebuilt/files/lib/libchromatix_ov8810_preview.so:system/lib/libchromatix_ov8810_preview.so \
+    device/zte/arthur/prebuilt/files/lib/libchromatix_ov9726_preview.so:system/lib/libchromatix_ov9726_preview.so \
+    device/zte/arthur/prebuilt/files/lib/libchromatix_ov9726_video.so:system/lib/libchromatix_ov9726_video.so \
+    device/zte/arthur/prebuilt/files/lib/libchromatix_s5k3e2fx_default_video.so:system/lib/libchromatix_s5k3e2fx_default_video.so \
+    device/zte/arthur/prebuilt/files/lib/libchromatix_s5k3e2fx_preview.so:system/lib/libchromatix_s5k3e2fx_preview.so \
+    device/zte/arthur/prebuilt/files/lib/libchromatix_sn12m0pz_default_video.so:system/lib/libchromatix_sn12m0pz_default_video.so \
+    device/zte/arthur/prebuilt/files/lib/libchromatix_sn12m0pz_preview.so:system/lib/libchromatix_sn12m0pz_preview.so \
+    device/zte/arthur/prebuilt/files/lib/libchromatix_vb6801_default_video.so:system/lib/libchromatix_vb6801_default_video.so \
+    device/zte/arthur/prebuilt/files/lib/libchromatix_vb6801_preview.so:system/lib/libchromatix_vb6801_preview.so \
+    device/zte/arthur/prebuilt/files/lib/libchromatix_vx6953_default_video.so:system/lib/libchromatix_vx6953_default_video.so \
+    device/zte/arthur/prebuilt/files/lib/libchromatix_vx6953_preview.so:system/lib/libchromatix_vx6953_preview.so \
+    device/zte/arthur/prebuilt/files/lib/libgemini.so:system/lib/libgemini.so \
+    device/zte/arthur/prebuilt/files/lib/libI420colorconvert.so:system/lib/libI420colorconvert.so \
+    device/zte/arthur/prebuilt/files/lib/libmmipl.so:system/lib/libmmipl.so \
+    device/zte/arthur/prebuilt/files/lib/libmmjpeg.so:system/lib/libmmjpeg.so \
+    device/zte/arthur/prebuilt/files/lib/libmmjps.so:system/lib/libmmjps.so \
+    device/zte/arthur/prebuilt/files/lib/libmmmpod.so:system/lib/libmmmpod.so \
+    device/zte/arthur/prebuilt/files/lib/libmmmpo.so:system/lib/libmmmpo.so \
+    device/zte/arthur/prebuilt/files/lib/libmmosal.so:system/lib/libmmosal.so \
+    device/zte/arthur/prebuilt/files/lib/liboemcamera.so:system/lib/liboemcamera.so \
+    device/zte/arthur/prebuilt/files/lib/hw/camera.msm7x30.so:system/lib/hw/camera.msm7x30.so
 
 # B08c bin
 PRODUCT_COPY_FILES += \
@@ -325,7 +356,6 @@ PRODUCT_COPY_FILES += \
 	device/zte/arthur/prebuilt/b08c/lib/libloc_ext.so:system/lib/libloc_ext.so \
 	device/zte/arthur/prebuilt/b08c/lib/libloc-rpc.so:system/lib/libloc-rpc.so \
 	device/zte/arthur/prebuilt/b08c/lib/libmmgsdilib.so:system/lib/libmmgsdilib.so \
-	device/zte/arthur/prebuilt/b08c/lib/libmmosal.so:system/lib/libmmosal.so \
 	device/zte/arthur/prebuilt/b08c/lib/libmmparser.so:system/lib/libmmparser.so \
 	device/zte/arthur/prebuilt/b08c/lib/libmmparser_divxdrmlib.so:system/lib/libmmparser_divxdrmlib.so \
 	device/zte/arthur/prebuilt/b08c/lib/libnetmgr.so:system/lib/libnetmgr.so \
