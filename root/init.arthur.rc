@@ -47,21 +47,31 @@ on post-fs
     chown system system /sys/devices/platform/msm_sdcc.4/polling
     chmod 0770 /cache
 
-	# ZTE_ZBS_20110107 +++
 #=======create WLAN filesystem structure +++==========================
-	#give system access to wpa_supplicant.conf for backup and restore
-    mkdir /data/misc/wifi/wpa_supplicant 0770 wifi wifi  
-	chmod 0660 /data/misc/wifi/wpa_supplicant.conf
-	#wpa_supplicant ctrl sockets
-    mkdir /data/misc/wifi/sockets 0770 system wifi
+# Create the directories used by the Wireless subsystem
+    mkdir /data/misc/wifi 0770 wifi wifi
+    chown wifi wifi /data/misc/wifi
     mkdir /data/misc/dhcp 0770 dhcp dhcp
+    chown dhcp dhcp /data/misc/dhcp
+
+#give system access to wpa_supplicant.conf for backup and restore
+    mkdir /data/misc/wifi/wpa_supplicant 0770 wifi wifi  
+    chmod 0660 /data/misc/wifi/wpa_supplicant.conf
+
+#wpa_supplicant ctrl sockets
+    mkdir /data/misc/wifi/sockets 0770 system wifi
+
     mkdir /data/system 0775 system system
     symlink /data/misc/wifi/wpa_supplicant /data/system/wpa_supplicant
-	#set the right for wlan driver to control slot3's polling property
-	chown system system /sys/bus/platform/devices/msm_sdcc.3/polling
-#=======create WLAN filesystem structure ---==========================	
-# ZTE_ZBS_20110107 ---  
+
+#set the right for wlan driver to control slot3's polling property
+    chown system system /sys/bus/platform/devices/msm_sdcc.3/polling
+
     setprop wifi.chip.type WCN
+
+
+#=======create WLAN filesystem structure ---==========================	
+
     chown root system /sys/module/g_android/parameters/product_id
     chmod 0664 /sys/module/g_android/parameters/product_id
     mkdir /data/radio 0770 radio radio
@@ -80,8 +90,8 @@ on post-fs
     #sys to light path for blink ZTE_HWY_20110307 end
     #change owner&group for ti-gague enable chenchongbao.20110725_1 begin
     chown root system /sys/bus/i2c/drivers/ti-fuel-gauge/enable
-	chown root system /sys/bus/i2c/drivers/ti-fuel-gauge/upmode
-	chown root system /sys/bus/i2c/drivers/ti-fuel-gauge/Control
+    chown root system /sys/bus/i2c/drivers/ti-fuel-gauge/upmode
+    chown root system /sys/bus/i2c/drivers/ti-fuel-gauge/Control
     #change owner&group for ti-gague enable chenchongbao.20110725_1 end
     # change permission from 0666 to 0664 to avoid cts failure, ZTE_BOOT_LIWEI_20110712
     chmod 0664 /sys/devices/platform/rs300000a7.65536/force_sync 
@@ -155,17 +165,6 @@ on property:init.svc.qcom-sh=stopped
     chmod 0660 /dev/ttyHS0
     chown bluetooth bluetooth /sys/devices/platform/msm_serial_hs.0/clock
     chmod 0660 /sys/devices/platform/msm_serial_hs.0/clock
-
-    # Override ro.carrier with Operator Name ,ZTE_BOOT_LIWEI_20110803
-    setprop ro.carrier "Boost Mobile"
-
-    # Create the directories used by the Wireless subsystem
-    mkdir /data/misc/wifi 0770 wifi wifi
-    mkdir /data/misc/wifi/sockets 0770 wifi wifi
-    mkdir /data/misc/wifi/wpa_supplicant 0770 wifi wifi
-    chown dhcp dhcp /data/misc/dhcp
-    # symlink /persist/qcom_wlan_nv.bin /etc/firmware/wlan/qcom_wlan_nv.bin
-    setprop wifi.interface wlan0
 
      # Create directories for wiper services
     mkdir /data/wpstiles/ 0777 shell
@@ -416,11 +415,6 @@ on property:dev.bootcomplete=1
     start proximity_init
 #ZTE_WANGZY_PROXIMITY_101014 
 
-#ZTE_ZYJ_DEFPRI_110702
-setprop ro.cdma.home.operator.numeric 311870
-setprop ro.cdma.home.operator.alpha "Boost Mobile"
-#ZTE_ZYJ_DEFPRI_110702 
-
 # ZTE_DATA_TCP_MTU 20110727
 setprop persist.data_netmgrd_mtu 1480
 # ZTE_DATA_CDMA_IPV6 20110808
@@ -440,25 +434,20 @@ on property:ro.gcftest=1
     stop DrmHost
 # ZTE_RIL_RJG_20100623 end
 
-# ZTE_BT_XUM_20110516 add
-service bluetooth_prop /system/bin/sh /system/bin/init.btprop.sh
-    oneshot
-
-service flash_recovery /system/etc/install-recovery.sh
-    oneshot
-
-# ZTE_ZBS_20110107 +++
-service wlan_prop /system/bin/sh /system/etc/init.wlanprop.sh
-    oneshot
 
 ##### WiFI############
 
-on property:init.svc.wlan_prop=stopped
-    write /sys/devices/platform/msm_sdcc.3/polling  1
-    insmod /system/lib/modules/librasdioif.ko
+service qcom_sdio_init /system/etc/init.qcom.sdio.sh 1
+    class main
+    oneshot
+    disabled
 
+service qcom_sdio_deinit /system/etc/init.qcom.sdio.sh 0
+    class main
+    oneshot
+    disabled
 
-service wpa_supplicant /system/bin/logwrapper /system/bin/wpa_supplicant -Dwext -iwlan0 -c/system/etc/wifi/wpa_supplicant.conf -dd
+service wpa_supplicant /system/bin/logwrapper /system/bin/wpa_supplicant -Dwext -iwlan0 -c/data/misc/wifi/wpa_supplicant.conf -dd
     class main
     user root
     group system wifi inet
@@ -471,7 +460,7 @@ service dhcpcd_wlan0 /system/bin/dhcpcd -ABKL wlan0
     disabled
     oneshot
 
-service iprenew_wlan0 /system/bin/dhcpcd -n
+service iprenew_wlan0 /system/bin/iprenew
     class main
     disabled
     oneshot

@@ -467,7 +467,7 @@ def WriteFullOTAPackage(input_zip, output_zip):
   script.SetPermissions("/system/etc/init.qcom.coex.sh", 0, 2000, 0555)
   script.SetPermissions("/system/etc/init.qcom.post_boot.sh", 0, 2000, 0555)
   script.SetPermissions("/system/etc/init.qcom.fm.sh", 0, 2000, 0555)
-
+  script.SetPermissions("/system/etc/init.qcom.sdio.sh", 0, 2000, 0555)
 
   script.Print("")
   script.Print("Flashing Kernel")

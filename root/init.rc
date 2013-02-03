@@ -210,9 +210,7 @@ mkdir /data/misc/keystore 0700 keystore keystore
 mkdir /data/misc/keychain 0771 system system
 mkdir /data/misc/vpn 0770 system vpn
 mkdir /data/misc/systemkeys 0700 system system
-# give system access to wpa_supplicant.conf for backup and restore
-mkdir /data/misc/wifi 0770 wifi wifi
-chmod 0660 /data/misc/wifi/wpa_supplicant.conf
+
 mkdir /data/local 0775 shell shell
 
 # For security reasons, /data/local/tmp should always be empty.

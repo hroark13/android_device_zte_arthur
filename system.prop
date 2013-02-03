@@ -1,20 +1,21 @@
+#
 # system.prop for surf
 #
 
-wlan.chip.vendor=qcom
-wlan.chip.version=wcnss
+#wlan.chip.vendor=qcom
+#wlan.chip.version=wcnss
 wifi.interface=wlan0
-wlan.driver.status=ok
-
+#wlan.driver.status=ok
 wifi.supplicant_scan_interval=90
-wifi.supplicant_no_update_ctrl=true
+#wifi.supplicant_no_update_ctrl=true
+
 dalvik.vm.dexopt-data-only=1
 com.qc.hardware=true
 
 
 ro.baseband.arch=msm
 ro.ril.disable.power.collapse=0
-ro.telephony.ril_class=ZTERIL2
+ro.telephony.ril_class=LGEQualcommRIL
 ro.telephony.ril.v3=qcomuiccstack,skipbrokendatacall,signalstrengt​h,datacall,skipnullaid
 ro.ril.def.preferred.network=4
 ro.telephony.default_network=4 
@@ -29,17 +30,19 @@ persist.rild.nitz_short_ons_0=
 persist.rild.nitz_short_ons_1=
 persist.rild.nitz_short_ons_2=
 persist.rild.nitz_short_ons_3=
-ril.subscription.types=NV,RUIM
+ril.subscription.types=NV
 DEVICE_PROVISIONED=1
 
-ro.carrier=unknown
+ro.carrier=Boost Mobile
+ro.cdma.home.operator.numeric=311870
+ro.cdma.home.operator.alpha="Boost Mobile"
 gsm.operator.alpha=Boost Mobile
-gsm.operator.numeric=310000
+gsm.operator.numeric=311870
 ro.cdma.default_alpha=Boost Mobile
-ro.cdma.default_numeric=310000
-ro.cdma.home.operator.alpha=Boost Mobile
-ro.cdma.home.operator.numeric=310000
+ro.cdma.default_numeric=311870
+
 mobiledata.interfaces=wlan0,rmnet0
+
 
 
 hwui.render_dirty_regions=false

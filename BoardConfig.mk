@@ -121,19 +121,29 @@ BOARD_USES_QCOM_GPS := true
 # Audio
 TARGET_PROVIDES_LIBAUDIO := false
 
-#RIL
-#BOARD_USES_LEGACY_RIL := true
-#BOARD_PROVIDES_LIBRIL := true
-
 # Wifi
-WIFI_DRIVER_MODULE_NAME          := libra
-WIFI_DRIVER_MODULE_PATH          := "/system/lib/modules/libra.ko"
-WPA_SUPPLICANT_VERSION           := VER_0_6_X
-BOARD_WPA_SUPPLICANT_DRIVER      := WEXT
-BOARD_HOSTAPD_DRIVER             := WEXT
-BOARD_WLAN_DEVICE                := libra
-BOARD_WEXT_NO_COMBO_SCAN := true
+# Defines for external/wpa_supplicant_*
+#WPA_SUPPLICANT_VERSION       := VER_0_8_X
+WPA_SUPPLICANT_VERSION       := VER_0_6_X
+BOARD_WPA_SUPPLICANT_DRIVER  := WEXT
+BOARD_HOSTAPD_DRIVER         := WEXT
+BOARD_WLAN_DEVICE            := qcwcn
 
+# Defines for hardware/libhardware_legacy
+WIFI_DRIVER_MODULE_PATH      := "/system/lib/modules/libra.ko"
+WIFI_DRIVER_MODULE_ARG       := ""
+WIFI_DRIVER_MODULE_NAME      := libra
+#WIFI_FIRMWARE_LOADER         := 
+#WIFI_DRIVER_LOADER_DELAY     := 1000000
+WIFI_DRIVER_FW_PATH_STA      := "sta"
+WIFI_DRIVER_FW_PATH_AP       := "ap"
+WIFI_DRIVER_FW_PATH_P2P      := "p2p"
+WIFI_DRIVER_FW_PATH_PARAM    := ""
+WIFI_EXT_MODULE_PATH         := "/system/wifi/librasdioif.ko"
+WIFI_EXT_MODULE_ARG          := ""
+WIFI_EXT_MODULE_NAME         := "librasdioif"
+WIFI_PRE_LOADER              := "qcom_sdio_init"
+WIFI_POST_UNLOADER           := "qcom_sdio_deinit"
 
 # Bluetooth
 BOARD_HAVE_BLUETOOTH := true
