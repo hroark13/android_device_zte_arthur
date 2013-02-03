@@ -437,16 +437,6 @@ on property:ro.gcftest=1
 
 ##### WiFI############
 
-service qcom_sdio_init /system/etc/init.qcom.sdio.sh 1
-    class main
-    oneshot
-    disabled
-
-service qcom_sdio_deinit /system/etc/init.qcom.sdio.sh 0
-    class main
-    oneshot
-    disabled
-
 service wpa_supplicant /system/bin/logwrapper /system/bin/wpa_supplicant -Dwext -iwlan0 -c/data/misc/wifi/wpa_supplicant.conf -dd
     class main
     user root
