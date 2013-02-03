@@ -56,12 +56,6 @@ git clone https://github.com/hroark13/android_device_zte_arthur.git -b master ar
 
 cd ../..
 
-cp device/zte/arthur/ZTERIL.java frameworks/base/telephony/java/com/android/internal/telephony/
-
-cp device/zte/arthur/ZTERIL2.java frameworks/base/telephony/java/com/android/internal/telephony/
-
-cp device/zte/arthur/ZTERIL2a.java frameworks/base/telephony/java/com/android/internal/telephony/
-
 source ./build/envsetup.sh
 
 make clobber
