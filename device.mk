@@ -272,6 +272,7 @@ PRODUCT_COPY_FILES += \
 	device/zte/arthur/prebuilt/b06ril/lib/libdss.so:system/lib/libdss.so \
 	device/zte/arthur/prebuilt/b06ril/lib/libdssock.so:system/lib/libdssock.so \
 	device/zte/arthur/prebuilt/b06ril/lib/libdsutils.so:system/lib/libdsutils.so \
+	device/zte/arthur/prebuilt/b06ril/lib/libidl.so:system/lib/libidl.so \
 	device/zte/arthur/prebuilt/b06ril/lib/libnetmgr.so:system/lib/libnetmgr.so \
 	device/zte/arthur/prebuilt/b06ril/lib/libnv.so:system/lib/libnv.so \
 	device/zte/arthur/prebuilt/b06ril/lib/libping_mdm.so:system/lib/libping_mdm.so \
