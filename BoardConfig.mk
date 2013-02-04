@@ -143,11 +143,6 @@ WIFI_EXT_MODULE_PATH         := "/system/lib/modules/librasdioif.ko"
 WIFI_EXT_MODULE_ARG          := ""
 WIFI_EXT_MODULE_NAME         := "librasdioif"
 
-# may have to modify wifi.c to use the below, if we can not
-# get wifi working a different way
-#WIFI_PRE_LOADER              := "qcom_sdio_init"
-#WIFI_POST_UNLOADER           := "qcom_sdio_deinit"
-
 # Bluetooth
 BOARD_HAVE_BLUETOOTH := true
 BOARD_HAVE_BLUETOOTH_BCM := true
