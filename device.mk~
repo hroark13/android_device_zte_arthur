@@ -251,59 +251,6 @@ PRODUCT_COPY_FILES += \
     device/zte/arthur/prebuilt/b08c/usr/keylayout/fluid-keypad.kl:system/usr/keylayout/fluid-keypad.kl \
     device/zte/arthur/prebuilt/b08c/usr/keylayout/msm_tma300_ts.kl:system/usr/keylayout/msm_tma300_ts.kl
 
-# B06 RIL
-PRODUCT_COPY_FILES += \
-	device/zte/arthur/prebuilt/b06ril/bin/netmgrd:system/bin/netmgrd \
-	device/zte/arthur/prebuilt/b06ril/bin/qmuxd:system/bin/qmuxd \
-	device/zte/arthur/prebuilt/b06ril/bin/rild:obj/bin/rild \
-	device/zte/arthur/prebuilt/b06ril/bin/rild:system/bin/rild \
-	device/zte/arthur/prebuilt/b06ril/lib/libauth.so:system/lib/libauth.so \
-	device/zte/arthur/prebuilt/b06ril/lib/libcm.so:system/lib/libcm.so \
-	device/zte/arthur/prebuilt/b06ril/lib/libcommondefs.so:obj/lib/libcommondefs.so \
-	device/zte/arthur/prebuilt/b06ril/lib/libcommondefs.so:system/lib/libcommondefs.so \
-	device/zte/arthur/prebuilt/b06ril/lib/libgsdi_exp.so:system/lib/libgsdi_exp.so \
-	device/zte/arthur/prebuilt/b06ril/lib/libgstk_exp.so:system/lib/libgstk_exp.so \
-	device/zte/arthur/prebuilt/b06ril/lib/libgps.so:system/lib/libgps.so \
-	device/zte/arthur/prebuilt/b06ril/lib/libdiag.so:obj/lib/libdiag.so \
-	device/zte/arthur/prebuilt/b06ril/lib/libdiag.so:system/lib/libdiag.so \
-	device/zte/arthur/prebuilt/b06ril/lib/libdl.so:system/lib/libdl.so \
-	device/zte/arthur/prebuilt/b06ril/lib/libdsi_netctrl.so:system/lib/libdsi_netctrl.so \
-	device/zte/arthur/prebuilt/b06ril/lib/libdsm.so:system/lib/libdsm.so \
-	device/zte/arthur/prebuilt/b06ril/lib/libdsprofile.so:system/lib/libdsprofile.so \
-	device/zte/arthur/prebuilt/b06ril/lib/libdss.so:system/lib/libdss.so \
-	device/zte/arthur/prebuilt/b06ril/lib/libdssock.so:system/lib/libdssock.so \
-	device/zte/arthur/prebuilt/b06ril/lib/libdsutils.so:system/lib/libdsutils.so \
-	device/zte/arthur/prebuilt/b06ril/lib/libidl.so:system/lib/libidl.so \
-	device/zte/arthur/prebuilt/b06ril/lib/libnetmgr.so:system/lib/libnetmgr.so \
-	device/zte/arthur/prebuilt/b06ril/lib/libnv.so:system/lib/libnv.so \
-	device/zte/arthur/prebuilt/b06ril/lib/libping_mdm.so:system/lib/libping_mdm.so \
-	device/zte/arthur/prebuilt/b06ril/lib/libqdp.so:system/lib/libqdp.so \
-	device/zte/arthur/prebuilt/b06ril/lib/libqmi.so:system/lib/libqmi.so \
-	device/zte/arthur/prebuilt/b06ril/lib/liboncrpc.so:system/lib/liboncrpc.so \
-	device/zte/arthur/prebuilt/b06ril/lib/libqmiservices.so:system/lib/libqmiservices.so \
-	device/zte/arthur/prebuilt/b06ril/lib/libqueue.so:system/lib/libqueue.so \
-	device/zte/arthur/prebuilt/b06ril/lib/libloc_api-rpc-qc.so:system/lib/libloc_api-rpc-qc.so \
-	device/zte/arthur/prebuilt/b06ril/lib/libloc_ext.so:system/lib/libloc_ext.so \
-	device/zte/arthur/prebuilt/b06ril/lib/libloc-rpc.so:system/lib/libloc-rpc.so \
-	device/zte/arthur/prebuilt/b06ril/lib/librefcne.so:system/lib/librefcne.so \
-	device/zte/arthur/prebuilt/b06ril/lib/libreference-cdma-sms.so:system/lib/libreference-cdma-sms.so \
-	device/zte/arthur/prebuilt/b06ril/lib/libreference-ril.so:obj/lib/libreference-ril.so \
-	device/zte/arthur/prebuilt/b06ril/lib/libreference-ril.so:system/lib/libreference-ril.so \
-	device/zte/arthur/prebuilt/b06ril/lib/libril.so:obj/lib/libril.so \
-	device/zte/arthur/prebuilt/b06ril/lib/libril.so:system/lib/libril.so \
-	device/zte/arthur/prebuilt/b06ril/lib/libril-qc-1.so:system/lib/libril-qc-1.so \
-	device/zte/arthur/prebuilt/b06ril/lib/libril-qc-qmi-1.so:system/lib/libril-qc-qmi-1.so \
-	device/zte/arthur/prebuilt/b06ril/lib/libril-qcril-hook-oem.so:system/lib/libril-qcril-hook-oem.so \
-	device/zte/arthur/prebuilt/b06ril/lib/libuim.so:system/lib/libuim.so \
-	device/zte/arthur/prebuilt/b06ril/lib/libwms.so:system/lib/libwms.so \
-	device/zte/arthur/prebuilt/b06ril/lib/libwmsts.so:system/lib/libwmsts.so \
-	device/zte/arthur/prebuilt/b06ril/lib/hw/gps.default.so:system/lib/hw/gps.msm7x30.so \
-	device/zte/arthur/prebuilt/b06ril/lib/libmmgsdilib.so:system/lib/libmmgsdilib.so \
-	device/zte/arthur/prebuilt/b06ril/lib/libpbmlib.so:system/lib/libpbmlib.so \
-	device/zte/arthur/prebuilt/b06ril/lib/liboem_rapi.so:system/lib/liboem_rapi.so \
-	device/zte/arthur/prebuilt/b06ril/lib/libpdsm_atl.so:system/lib/libpdsm_atl.so \
-	device/zte/arthur/prebuilt/b06ril/lib/libpdapi.so:system/lib/libpdapi.so \
-	device/zte/arthur/prebuilt/files/lib/libqc-opt.so:system/lib/libqc-opt.so
 
 # B08c bin
 PRODUCT_COPY_FILES += \
