@@ -30,6 +30,84 @@ on emmc-fs
     mount ext4 /dev/block/mmcblk0p17 /cache nosuid nodev barrier=1
 
 on post-fs
+############################################################
+# This is also in the init.rc in "on post-fs-data" but if we
+# do not have this section here, the phone will not
+# boot with an empt data partition
+
+    # We chown/chmod /data again so because mount is run as root + defaults
+    chown system system /data
+    chmod 0771 /data
+
+    # Create dump dir and collect dumps.
+    # Do this before we mount cache so eventually we can use cache for
+    # storing dumps on platforms which do not have a dedicated dump partition.
+    mkdir /data/dontpanic 0750 root log
+
+    # Collect apanic data, free resources and re-arm trigger
+    copy /proc/apanic_console /data/dontpanic/apanic_console
+    chown root log /data/dontpanic/apanic_console
+    chmod 0640 /data/dontpanic/apanic_console
+
+    copy /proc/apanic_threads /data/dontpanic/apanic_threads
+    chown root log /data/dontpanic/apanic_threads
+    chmod 0640 /data/dontpanic/apanic_threads
+
+    write /proc/apanic_console 1
+
+    # create basic filesystem structure
+    mkdir /data/misc 01771 system misc
+    mkdir /data/misc/bluetoothd 0770 bluetooth bluetooth
+    mkdir /data/misc/bluetooth 0770 system system
+    mkdir /data/misc/keystore 0700 keystore keystore
+    mkdir /data/misc/keychain 0771 system system
+    mkdir /data/misc/vpn 0770 system vpn
+    mkdir /data/misc/systemkeys 0700 system system
+    # give system access to wpa_supplicant.conf for backup and restore
+    mkdir /data/misc/wifi 0770 wifi wifi
+    chmod 0660 /data/misc/wifi/wpa_supplicant.conf
+    mkdir /data/local 0751 root root
+
+    # For security reasons, /data/local/tmp should always be empty.
+    # Do not place files or directories in /data/local/tmp
+    mkdir /data/local/tmp 0771 shell shell
+    mkdir /data/data 0771 system system
+    mkdir /data/app-private 0771 system system
+    mkdir /data/app-asec 0700 root root
+    mkdir /data/app 0771 system system
+    mkdir /data/property 0700 root root
+    mkdir /data/ssh 0750 root shell
+    mkdir /data/ssh/empty 0700 root root
+    mkdir /data/radio 0770 radio radio
+
+    # create dalvik-cache and double-check the perms, so as to enforce our permissions
+    mkdir /data/dalvik-cache 0771 system system
+    chown system system /data/dalvik-cache
+    chmod 0771 /data/dalvik-cache
+
+    # create resource-cache and double-check the perms
+    mkdir /data/resource-cache 0771 system system
+    chown system system /data/resource-cache
+    chmod 0771 /data/resource-cache
+
+    # create the lost+found directories, so as to enforce our permissions
+    mkdir /data/lost+found 0770 root root
+
+    # create directory for DRM plug-ins - give drm the read/write access to
+    # the following directory.
+    mkdir /data/drm 0770 drm drm
+
+    # If there is no fs-post-data action in the init.<device>.rc file, you
+    # must uncomment this line, otherwise encrypted filesystems
+    # won't work.
+    # Set indication (checked by vold) that we have finished this action
+    #setprop vold.post_fs_data_done 1
+
+# Include extra init file
+    import /init.cm.rc
+
+
+#######################################################
 
     # Mounting of persist is moved to 'on emmc-fs' and 'on fs' sections
     # We chown/chmod /persist again so because mount is run as root + defaults
@@ -118,14 +196,15 @@ on boot
 ########### HROARK MOD 1 ##################################################
 # THIS IS NEED BECAUSE ZTE DECIDED TO DISABLE USB FUNCTIONS THE THE KERNEL
 # UNTIL  WE HAVE WORKING KERNEL SOURCE CODE WE NEED THIS FOR ADB AND UMS 
-
-service usbconfig /sbin/usbconfig
-    oneshot
-
-on property:usbconfigon=1
-    start usbconfig
-
-setprop usbconfigon "1"
+exec /sbin/usbconfig adb
+write /sys/class/android_usb/android0/enable 0
+write /sys/class/android_usb/android0/idVendor 12d1
+write /sys/class/android_usb/android0/idProduct 1038
+write /sys/class/android_usb/android0/f_diag/clients diag
+write /sys/class/android_usb/android0/functions adb
+write /sys/class/android_usb/android0/enable 1
+start adbd
+setprop sys.usb.state adb
 
 ########### END HROARK MOD 1 ###############################################
 
@@ -216,10 +295,9 @@ on property:init.svc.bluetoothd=running
 on property:init.svc.bluetoothd=stopped
     stop btwlancoex
 
-#service cnd /system/bin/cnd
-#    socket cnd stream 660 root radio
 
 service hciattach /system/bin/sh /system/etc/init.qcom.bt.sh
+    class main
     user bluetooth
     group qcom_oncrpc bluetooth net_bt_admin
     disabled
@@ -229,28 +307,34 @@ service port-bridge /system/bin/port-bridge /dev/smd0 /dev/ttyGS0
 
 #ZTE_WSH_SPRINTAT_110517,begin
 service at-daemon /system/bin/at-daemon
+    class main
 #ZTE_WSH_SPRINTAT_110517,end
 
 #ZTE_GPS_LPZ_20110801 BEGIN
 #Start service for loc_api_app
 service loc_api_app /system/bin/loc_api_app
+    class main
     user root
 #ZTE_GPS_LPZ_20110801 END
 
 service qmuxd /system/bin/qmuxd
+    class main
 
 service netmgrd /system/bin/netmgrd
+    class main
 
 on property:ro.use_data_netmgrd=false
     # netmgr not supported on specific target
     stop netmgrd
 
 service btwlancoex /system/bin/sh /system/etc/init.qcom.coex.sh
+    class main
     group bluetooth net_bt_admin
     disabled
     oneshot
 
 service wiperiface /system/bin/wiperiface
+    class main
     user location
     group qcom_oncrpc
     oneshot
@@ -261,22 +345,26 @@ service gpsone_daemon /system/bin/gpsone_daemon
     disabled
 
 service fm_dl /system/bin/sh /system/etc/init.qcom.fm.sh
+    class main
     user system
     group system qcom_oncrpc
     disabled
     oneshot
 
 service qcom-sh /system/bin/sh /init.qcom.sh
+    class core
     user root
     oneshot
 
 #ZTE_SENSORS_FYA_001 , begin, 20110315
 service akmd /system/bin/akmd8962
+    class main
     user root
     oneshot
 #ZTE_SENSORS_FYA_001 , end  , 20110315
 	
 service qcom-post-boot /system/bin/sh /system/etc/init.qcom.post_boot.sh
+    class main
     user root
     disabled
     oneshot
@@ -284,6 +372,7 @@ service qcom-post-boot /system/bin/sh /system/etc/init.qcom.post_boot.sh
 #ZTE_LOG_WXW_001, begin, 20101013
 #ZTE_LOG_CXH_0322
 service getlog /system/bin/getlogtofile
+    class main
     user root
     disabled
     oneshot
@@ -311,6 +400,7 @@ on property:init.svc.bootanim=stopped
 #    start qcom-wifi
 
 service ckpd /system/bin/CKPD-daemon
+    class main
     disabled
     onrestart /system/bin/log -t RIL-CKPD -p w "CKPD daemon restarted"
 
@@ -318,6 +408,7 @@ on property:ro.service.ckpd.enable=1
     start ckpd
 
 service hdmid /system/bin/hdmid
+    class main
     socket hdmid stream 0660 root system graphics
     disabled
 
@@ -325,6 +416,7 @@ on property:ro.hdmi.enable=true
     start hdmid
 
 service ds_fmc_appd /system/bin/ds_fmc_appd -p "rmnet0" -D
+    class main
     group radio
     disabled
     oneshot
@@ -333,6 +425,7 @@ on property:persist.data.ds_fmc_app.mode=1
     start ds_fmc_appd
 
 service ims_regmanager /system/bin/exe-ims-regmanagerprocessnative
+    class main
     user system
     group qcom_oncrpc net_bt_admin inet radio wifi
     disabled
@@ -345,6 +438,7 @@ on property:ro.data.large_tcp_window_size=true
     write /proc/sys/net/ipv4/tcp_adv_win_scale  1
 
 service thermald /system/bin/thermald
+    class main
     user root
     group root
     disabled
@@ -353,6 +447,7 @@ on property:persist.thermal.monitor=true
     start thermald
 
 service time_daemon /system/bin/time_daemon
+    class main
     user root
     group root
     oneshot
@@ -363,36 +458,42 @@ on property:persist.timed.enable=true
     start time_daemon
 
 service ftp /system/bin/sdptool add --channel=20 FTP
+    class main
     user bluetooth
     group bluetooth net_bt_admin
     disabled
     oneshot
 
 service map /system/bin/sdptool add --channel=16 MAS
+    class main
     user bluetooth
     group bluetooth net_bt_admin
     disabled
     oneshot
 
 service hfag /system/bin/sdptool add --channel=10 HFAG
+    class main
     user bluetooth
     group bluetooth net_bt_admin
     disabled
     oneshot
 
 service hsag /system/bin/sdptool add --channel=11 HSAG
+    class main
     user bluetooth
     group bluetooth net_bt_admin
     disabled
     oneshot
 
 service opush /system/bin/sdptool add --channel=12 OPUSH
+    class main
     user bluetooth
     group bluetooth net_bt_admin
     disabled
     oneshot
 
 service pbap /system/bin/sdptool add --channel=19 PBAP
+    class main
     user bluetooth
     group bluetooth net_bt_admin
     disabled
@@ -401,11 +502,13 @@ service pbap /system/bin/sdptool add --channel=19 PBAP
 
 #ZTE_WANGZY_PROXIMITY_101014
 service proximity_init /system/bin/proximity.init -r
+    class main
     disabled
     oneshot
 
 #ZTE_ZHENGCHAO_SPRINTDIAG_20110630
 service sprintdiag /system/bin/sprintdiag
+    class main
     user root
     group radio cache inet misc audio qcom_oncrpc diag
     
@@ -420,6 +523,7 @@ setprop persist.telephony.support_ipv6 false
 
 #ZTE_RIL_RJG_20100804 begin
 service sdlog-daemon /system/bin/sdlog
+    class main
     disabled
 
 on property:persist.service.sdlog.enable=1

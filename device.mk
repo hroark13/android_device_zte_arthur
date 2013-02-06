@@ -104,18 +104,10 @@ PRODUCT_COPY_FILES += \
     device/zte/arthur/root/default.prop:/root/default.prop \
     device/zte/arthur/root/init:/root/init \
     device/zte/arthur/root/init.arthur.rc:/root/init.arthur.rc \
-    device/zte/arthur/root/init.goldfish.rc:/root/init.goldfish.rc \
     device/zte/arthur/root/initlogo.rle:/root/initlogo.rle \
-    device/zte/arthur/root/init.qcom.rc:/root/init.qcom.rc \
     device/zte/arthur/root/init.qcom.sh:/root/init.qcom.sh \
-    device/zte/arthur/root/init.rc:/root/init.rc \
-    device/zte/arthur/root/init.trace.rc:/root/init.trace.rc \
-    device/zte/arthur/root/init.usb.rc:/root/init.usb.rc \
     device/zte/arthur/root/logo.bmp:/root/logo.bmp \
     device/zte/arthur/root/ueventd.arthur.rc:/root/ueventd.arthur.rc \
-    device/zte/arthur/root/ueventd.goldfish.rc:/root/ueventd.goldfish.rc \
-    device/zte/arthur/root/ueventd.rc:/root/ueventd.rc \
-    device/zte/arthur/root/sbin/adbd:/root/sbin/adbd \
     device/zte/arthur/root/sbin/diagftmtest:/root/sbin/diagftmtest \
     device/zte/arthur/root/sbin/hci_qcomm_init:/root/sbin/hci_qcomm_init \
     device/zte/arthur/root/sbin/iwmulticall:/root/sbin/iwmulticall \
@@ -123,7 +115,6 @@ PRODUCT_COPY_FILES += \
     device/zte/arthur/root/sbin/membank.sh:/root/sbin/membank.sh \
     device/zte/arthur/root/sbin/ptt_socket_app:/root/sbin/ptt_socket_app \
     device/zte/arthur/root/sbin/rmt_storage:/root/sbin/rmt_storage \
-    device/zte/arthur/root/sbin/ueventd:/root/sbin/ueventd \
     device/zte/arthur/root/sbin/usbconfig:/root/sbin/usbconfig
 
 # Recovery

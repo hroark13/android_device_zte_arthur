@@ -52,7 +52,7 @@ TARGET_GLOBAL_CPPFLAGS += -mfpu=neon -mfloat-abi=softfp -march=armv7-a
 TARGET_BOARD_PLATFORM_GPU := qcom-adreno220
 TARGET_BOARD_PLATFORM_FPU := neon
 BOARD_USES_ADRENO_200 := true
-TARGET_PROVIDES_INIT_RC := true
+TARGET_PROVIDES_INIT_RC := false
 TARGET_PROVIDES_RECOVERY_INIT_RC := true
 TARGET_RECOVERY_INITRC := device/zte/arthur/recovery/root/init.rc
 ARCH_ARM_HAVE_ARMV7A := true
