@@ -33,7 +33,7 @@ on post-fs
 ############################################################
 # This is also in the init.rc in "on post-fs-data" but if we
 # do not have this section here, the phone will not
-# boot with an empt data partition
+# boot with an empty data partition
 
     # We chown/chmod /data again so because mount is run as root + defaults
     chown system system /data

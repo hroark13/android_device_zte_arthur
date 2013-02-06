@@ -91,7 +91,3 @@
 /dev/tun                     0640    vpn         vpn
 /dev/video*                  0660    system      camera
 
-
-/sys/devices/virtual/input/input*   enable      0660  root   input
-/sys/devices/virtual/input/input*   poll_delay  0660  root   input
-
