@@ -80,7 +80,7 @@ PRODUCT_PACKAGES += \
 
 # These are the hardware-specific features
 PRODUCT_COPY_FILES += \
-	frameworks/native/data/etc/tablet_core_hardware.xml:system/etc/permissions/tablet_core_hardware.xml \
+	frameworks/native/data/etc/handheld_core_hardware.xml:system/etc/permissions/handheld_core_hardware.xml \
 	frameworks/native/data/etc/android.hardware.telephony.gsm.xml:system/etc/permissions/android.hardware.telephony.gsm.xml \
 	frameworks/native/data/etc/android.hardware.telephony.cdma.xml:system/etc/permissions/android.hardware.telephony.cdma.xml \
 	frameworks/native/data/etc/android.hardware.camera.xml:system/etc/permissions/android.hardware.camera.xml \
@@ -97,7 +97,13 @@ PRODUCT_COPY_FILES += \
 	frameworks/native/data/etc/android.software.sip.xml:system/etc/permissions/android.software.sip.xml \
 	frameworks/native/data/etc/android.hardware.sensor.proximity.xml:system/etc/permissions/android.hardware.sensor.proximity.xml \
 	packages/wallpapers/LivePicker/android.software.live_wallpaper.xml:system/etc/permissions/android.software.live_wallpaper.xml \
-	device/zte/arthur/prebuilt/files/etc/permissions/com.google.android.media.effects.xml:/system/etc/permissions/com.google.android.media.effects.xml 
+	device/zte/arthur/prebuilt/files/etc/permissions/com.google.android.media.effects.xml:/system/etc/permissions/com.google.android.media.effects.xml \
+	frameworks/native/data/etc/android.hardware.wifi.direct.xml:system/etc/permissions/android.hardware.wifi.direct.xml \
+	frameworks/native/data/etc/android.hardware.sensor.compass.xml:system/etc/permissions/android.hardware.sensor.compass.xml \
+	frameworks/native/data/etc/android.hardware.sensor.accelerometer.xml:system/etc/permissions/android.hardware.sensor.accelerometer.xml \
+	frameworks/native/data/etc/android.hardware.touchscreen.multitouch.xml:system/etc/permissions/android.hardware.touchscreen.multitouch.xml \
+	frameworks/native/data/etc/android.hardware.usb.host.xml:system/etc/permissions/android.hardware.usb.host.xml \
+	frameworks/native/data/etc/android.hardware.bluetooth.xml:system/etc/permissions/android.hardware.bluetooth.xml
 
 # Root
 PRODUCT_COPY_FILES += \
@@ -296,9 +302,19 @@ PRODUCT_COPY_FILES += \
 	device/zte/arthur/prebuilt/b06ril/lib/libpdapi.so:system/lib/libpdapi.so \
 	device/zte/arthur/prebuilt/files/lib/libqc-opt.so:system/lib/libqc-opt.so
 
-# B08c bin
+
+# Sensors
 PRODUCT_COPY_FILES += \
 	device/zte/arthur/prebuilt/b08c/bin/akmd8962:system/bin/akmd8962 \
+	device/zte/arthur/prebuilt/files/lib/hw/sensors.default.so:system/lib/hw/sensors.default.so
+
+# LEDS
+PRODUCT_COPY_FILES += \
+	device/zte/arthur/prebuilt/b08c/lib/hw/lights.msm7k.so:system/lib/hw/lights.msm7x30.so
+
+
+# B08c bin
+PRODUCT_COPY_FILES += \
 	device/zte/arthur/prebuilt/b08c/bin/at-daemon:system/bin/at-daemon \
 	device/zte/arthur/prebuilt/b08c/bin/battery_charging:system/bin/battery_charging \
 	device/zte/arthur/prebuilt/b08c/bin/bluetoothd:system/bin/bluetoothd \
@@ -343,8 +359,6 @@ PRODUCT_COPY_FILES += \
 PRODUCT_COPY_FILES += \
 	device/zte/arthur/prebuilt/b08c/lib/bluez-plugin/audio.so:system/lib/bluez-plugin/audio.so \
 	device/zte/arthur/prebuilt/b08c/lib/bluez-plugin/input.so:system/lib/bluez-plugin/input.so \
-	device/zte/arthur/prebuilt/b08c/lib/hw/lights.msm7k.so:system/lib/hw/lights.msm7x30.so \
-	device/zte/arthur/prebuilt/b08c/lib/hw/sensors.default.so:system/lib/hw/sensors.msm7x30.so \
 	device/zte/arthur/prebuilt/b08c/lib/libmmosal.so:system/lib/libmmosal.so \
 	device/zte/arthur/prebuilt/b08c/lib/libmmparser.so:system/lib/libmmparser.so \
 	device/zte/arthur/prebuilt/b08c/lib/libmmparser_divxdrmlib.so:system/lib/libmmparser_divxdrmlib.so \
