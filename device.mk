@@ -80,6 +80,7 @@ PRODUCT_PACKAGES += \
 
 # These are the hardware-specific features
 PRODUCT_COPY_FILES += \
+        frameworks/native/data/etc/tablet_core_hardware.xml:system/etc/permissions/tablet_core_hardware.xml \
 	frameworks/native/data/etc/handheld_core_hardware.xml:system/etc/permissions/handheld_core_hardware.xml \
 	frameworks/native/data/etc/android.hardware.telephony.gsm.xml:system/etc/permissions/android.hardware.telephony.gsm.xml \
 	frameworks/native/data/etc/android.hardware.telephony.cdma.xml:system/etc/permissions/android.hardware.telephony.cdma.xml \
@@ -136,9 +137,10 @@ PRODUCT_COPY_FILES += \
 
 # Display EGL/GPU ICS
 PRODUCT_PACKAGES += \
+    copybit.msm7x30 \
     gralloc.msm7x30 \
     hwcomposer.msm7x30 \
-    copybit.msm7x30
+    libgenlock 
 
 PRODUCT_COPY_FILES += \
     device/zte/arthur/prebuilt/files/etc/firmware/a225_pfp.fw:system/etc/firmware/a225_pfp.fw \
@@ -203,24 +205,7 @@ PRODUCT_COPY_FILES += \
 	device/zte/arthur/prebuilt/files/etc/wifi/cpwpaconf.sh:system/etc/wifi/cpwpaconf.sh \
 	device/zte/arthur/prebuilt/files/lib/modules/libra.ko:system/lib/modules/libra.ko \
 	device/zte/arthur/prebuilt/files/lib/modules/libra_ftm.ko:system/lib/modules/libra_ftm.ko \
-	device/zte/arthur/prebuilt/files/lib/modules/librasdioif.ko:system/lib/modules/librasdioif.ko
-
-# hostapd
-PRODUCT_COPY_FILES += \
-	device/zte/arthur/prebuilt/b08c/bin/hostapd:system/bin/hostapd \
-	device/zte/arthur/prebuilt/b08c/bin/hostapd_cli:system/bin/hostapd_cli \
-	device/zte/arthur/prebuilt/b08c/hostapd/hostapd.accept:system/hostapd/hostapd.accept \
-	device/zte/arthur/prebuilt/b08c/hostapd/hostapd.conf:system/hostapd/hostapd.conf \
-	device/zte/arthur/prebuilt/b08c/hostapd/hostapd.deny:system/hostapd/hostapd.deny \
-	device/zte/arthur/prebuilt/b08c/qcom/softap/hostapd_default.conf:system/qcom/softap/hostapd_default.conf \
-	device/zte/arthur/prebuilt/b08c/lib/libQWiFiSoftApCfg.so:system/lib/libQWiFiSoftApCfg.so
-
-
-# Camera
-PRODUCT_PACKAGES += \
-    LegacyCamera \
-    camera.arthur \
-    libcamera
+	device/zte/arthur/prebuilt/files/lib/modules/librasdioif.ko:system/lib/modules/librasdioif.ko \
 
 PRODUCT_COPY_FILES += \
 	device/zte/arthur/prebuilt/b08c/bin/mm-qcamera-test:system/bin/mm-qcamera-test \
@@ -301,19 +286,57 @@ PRODUCT_COPY_FILES += \
 	device/zte/arthur/prebuilt/b06ril/lib/libpdapi.so:system/lib/libpdapi.so \
 	device/zte/arthur/prebuilt/files/lib/libqc-opt.so:system/lib/libqc-opt.so
 
-
-# Sensors
+# Audio fix
 PRODUCT_COPY_FILES += \
-	device/zte/arthur/prebuilt/b08c/bin/akmd8962:system/bin/akmd8962 \
-	device/zte/arthur/prebuilt/files/lib/hw/sensors.default.so:system/lib/hw/sensors.default.so
+        device/zte/arthur/prebuilt/b08c/etc/audio_policy.conf:system/etc/audio_policy.conf 
+
+## Bluetooth
+PRODUCT_PACKAGES += \
+	hciattach \
+	hciconfig \
+	hcitool \
+	hdmid
+
+# Camera
+PRODUCT_PACKAGES += \
+    LegacyCamera \
+    camera.7x30 \
+    libcamera
+
+# Wireless AP
+PRODUCT_PACKAGES += \
+	hostapd_cli \
+	hostapd
+
+# hostapd
+PRODUCT_COPY_FILES += \
+	device/zte/arthur/prebuilt/b08c/hostapd/hostapd.accept:system/hostapd/hostapd.accept \
+	device/zte/arthur/prebuilt/b08c/hostapd/hostapd.conf:system/hostapd/hostapd.conf \
+	device/zte/arthur/prebuilt/b08c/hostapd/hostapd.deny:system/hostapd/hostapd.deny \
+	device/zte/arthur/prebuilt/b08c/qcom/softap/hostapd_default.conf:system/qcom/softap/hostapd_default.conf \
+	device/zte/arthur/prebuilt/b08c/lib/libQWiFiSoftApCfg.so:system/lib/libQWiFiSoftApCfg.so
+
+# iptables
+PRODUCT_PACKAGES += \
+	ip6tables \
+	iptables
 
 # LEDS
 PRODUCT_COPY_FILES += \
 	device/zte/arthur/prebuilt/b08c/lib/hw/lights.msm7k.so:system/lib/hw/lights.msm7x30.so
 
+# Power HAL
+PRODUCT_PACKAGES += \
+        power.msm7x30
+
+# Sensors
+PRODUCT_COPY_FILES += \
+   device/zte/arthur/prebuilt/b08c/bin/akmd8962:system/bin/akmd8962 \
+   device/zte/arthur/prebuilt/files/lib/hw/sensors.default.so:system/lib/hw/sensors.default.so
 
 # B08c bin
 PRODUCT_COPY_FILES += \
+        device/zte/arthur/prebuilt/b08c/bin/akmd8962:system/bin/akmd8962 \
 	device/zte/arthur/prebuilt/b08c/bin/at-daemon:system/bin/at-daemon \
 	device/zte/arthur/prebuilt/b08c/bin/battery_charging:system/bin/battery_charging \
 	device/zte/arthur/prebuilt/b08c/bin/bluetoothd:system/bin/bluetoothd \
@@ -325,10 +348,6 @@ PRODUCT_COPY_FILES += \
 	device/zte/arthur/prebuilt/b08c/bin/fm_qsoc_patches:system/bin/fm_qsoc_patches \
 	device/zte/arthur/prebuilt/b08c/bin/getlogtofile:system/bin/getlogtofile \
 	device/zte/arthur/prebuilt/b08c/bin/hci_qcomm_init:system/bin/hci_qcomm_init \
-	device/zte/arthur/prebuilt/b08c/bin/hciattach:system/bin/hciattach \
-	device/zte/arthur/prebuilt/b08c/bin/hciconfig:system/bin/hciconfig \
-	device/zte/arthur/prebuilt/b08c/bin/hcitool:system/bin/hcitool \
-	device/zte/arthur/prebuilt/b08c/bin/hdmid:system/bin/hdmid \
 	device/zte/arthur/prebuilt/b08c/bin/hlr_auc_gw:system/bin/hlr_auc_gw \
 	device/zte/arthur/prebuilt/b08c/bin/init.btprop.sh:system/bin/init.btprop.sh \
 	device/zte/arthur/prebuilt/b08c/bin/loc_api_app:system/bin/loc_api_app \

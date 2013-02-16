@@ -46,7 +46,7 @@ mobiledata.interfaces=wlan0,rmnet0
 
 
 hwui.render_dirty_regions=false
-hwui.disable_vsync=true
+hwui.disable_vsync=false
 hwui.print_config=choice
 debug.sf.hw=1
 debug.composition.type=gpu
@@ -54,11 +54,10 @@ debug.overlayui.enable=0
 dev.pm.dyn_samplingrate=1
 video.accelerate.hw=1
 debug.performance.tuning=1
-windowsmgr.max_events_per_sec=150
+windowsmgr.max_events_per_sec=300
 ro.sf.lcd_density=240
 ro.sf.hwrotation=180
 debug.mdpcomp.maxlayer=0
-debug.gr.swapinterval=0
 persist.sys.ui.hw=0
 debug.egl.hw=1
 ro.min.fling_velocity=8000
@@ -145,3 +144,30 @@ ro.bluetooth.request.master=true
 # System prop for using landscape preview layout in camera
 #
 debug.camera.landscape=true
+
+# Tweaks for SilkUI 
+debug.sf.hw = 1
+debug.enabletr = true
+debug.qctwa.preservebuf = 1
+debug.egl.profiler=1
+debug.gr.swapinterval=1
+persist.sampling_profiler=0
+persist.sys.NV_FPSLIMIT=60
+persist.sys.ui.hw=1
+persist.sys.use_16bpp_alpha=1
+persist.sys.use_dithering=1
+persist.service.lgospd.enable=0
+persist.service.pcsync.enable=0
+
+# Dns
+net.rmnet0.dns1=8.8.8.8
+net.rmnet0.dns2=8.8.4.4
+net.dns1=8.8.8.8
+net.dns2=8.8.4.4
+
+
+
+
+
+
+

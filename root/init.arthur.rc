@@ -302,8 +302,19 @@ on property:init.svc.qcom-sh=stopped
     chmod 0664 /dev/light
     chmod 0664 /dev/compass_dev
     chmod 0664 /dev/proximity
-	
 
+######### JETX2X SENSOR HACK #########
+
+chmod 7777 /system/bin/sensorservice
+service sensorservice /system/bin/sensorservice
+    class main
+    user root system 
+    group system
+    enabled
+start sensorservice
+
+#####################################
+	
 on property:init.svc.wpa_supplicant=stopped
     stop dhcpcd
 
@@ -555,7 +566,16 @@ on property:ro.gcftest=1
     stop DrmHost
 # ZTE_RIL_RJG_20100623 end
 
+######## DRMSERVICE DM47021 ########
 
+chmod 7777 /system/bin/drmserver
+service drmserver /system/bin/drmserver
+    class main
+    user system
+    group system drm
+start drmserver
+
+####################################
 ##### WiFI############
 
 service cpwpaconf /system/bin/sh /system/etc/wifi/cpwpaconf.sh
@@ -592,4 +612,5 @@ service hostapd /system/bin/hostapd -dddd /data/hostapd/hostapd.conf
     group root
     oneshot
     disabled
+
 ##### End WiFI############
